@@ -49,6 +49,15 @@
     closePanel(false);
   });
 
+  /* Tiny cross-module hooks for the overlay router: it closes the panel
+     after a nav link opens an overlay, and defers to an open panel when
+     deciding who consumes an Escape press. */
+  window.KAYLUV = window.KAYLUV || {};
+  window.KAYLUV.isGearMenuOpen = isOpen;
+  window.KAYLUV.closeGearMenu = function () {
+    if (isOpen()) closePanel(false);
+  };
+
   /* Sound stub: flips its own state so the control is testable, but is
      wired to nothing — the audio manager lands in build step 7. */
   soundToggle.addEventListener("click", function () {

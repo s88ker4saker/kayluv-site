@@ -1,0 +1,65 @@
+/*
+ * KAYLUV.SITE — standalone destination pages (build step 3, SPEC §4)
+ * Loaded when a section URL is visited directly (deep link, share, SEO,
+ * no-JS). The overlay router never uses this file — it extracts the page's
+ * [data-overlay-root] fragment and styles it with the shell's overlay CSS.
+ *
+ * Same motion convention as css/main.css: no animation/transition outside a
+ * prefers-reduced-motion: no-preference block (none exist here yet).
+ */
+
+:root {
+  --paper: #F7F2E8;
+  --ink: #141414;
+  --kayluv-blue: #3078C0;
+  --fire-gold: #F0A800;
+  --fire-orange: #E85C10;
+  --fire-red: #C81E1E;
+  --font-display: "Cooper Black", "Windsor", "Cooper Std", Georgia, serif;
+  --font-body: "Iowan Old Style", Georgia, "Times New Roman", serif;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+.return-link {
+  max-width: 640px;
+  margin: 32px auto 0;
+  padding: 0 24px;
+}
+
+main {
+  max-width: 640px;
+  margin: 6dvh auto 15dvh;
+  padding: 0 24px;
+}
+
+h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  letter-spacing: 0.01em;
+}
+
+.placeholder-note {
+  font-style: italic;
+  color: rgba(20, 20, 20, 0.65);
+}
+
+a {
+  color: var(--ink);
+}
+
+a:hover,
+a:focus-visible {
+  color: var(--fire-orange);
+}
+
+a:focus-visible {
+  outline: 3px solid var(--fire-gold);
+  outline-offset: 2px;
+}

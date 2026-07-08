@@ -63,8 +63,18 @@
     </div>
   </div>
 
+  <!-- OVERLAY (SPEC §4): destinations open here, above the dimmed room,
+       fetched by js/overlay-router.js from their standalone pages. -->
+  <div id="overlay-scrim" class="overlay-scrim" hidden></div>
+  <section id="overlay-panel" class="overlay-panel" role="dialog" hidden>
+    <button id="overlay-close" class="overlay-close" type="button"
+            aria-label="Close and return to the shop">&times;</button>
+    <div id="overlay-body" class="overlay-body" tabindex="-1"></div>
+  </section>
+
   <script src="js/hotspot-data.js" defer></script>
   <script src="js/room.js" defer></script>
   <script src="js/gear-menu.js" defer></script>
+  <script src="js/overlay-router.js" defer></script>
 </body>
 </html>

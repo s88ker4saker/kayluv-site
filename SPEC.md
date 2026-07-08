@@ -42,6 +42,7 @@ A fan-facing portfolio/music hub for Kayluv (presenter identity of composer Cale
 - Clicking an object fetches the destination page's HTML fragment and opens it in an **overlay panel** above the dimmed room; `history.pushState` sets the real URL.
 - Every destination also exists as a **complete standalone HTML page** at its real URL (for deep links, SEO, sharing). Each standalone page includes a small script: if loaded directly, it renders itself normally with a "Return to the Shop" link; content is authored once (fragment included by both paths — a tiny build step or SSI-style include is acceptable).
 - Back button / Escape closes the overlay, returns to the room, audio uninterrupted.
+- **Overlays are for document-like destinations only** (Catalogue, Counter, Bulletin, Correspondence, Proprietor, Listen, folios). **Rooms are scenes, not overlays:** the Back Room (and any future room) opens via an in-shell **scene swap** — the shell exchanges the room image + hotspot set in place and `history.pushState` sets the real URL (e.g. `/backroom/`), so entering feels like walking into another room of the house while audio persists. A transition (door creak, darken, step through) may dress the swap; `prefers-reduced-motion` skips it. Deep-linking a scene URL boots the shell showing that scene. *(Decided 2026-07-08.)*
 - Audio manager: single global module (Web Audio or pooled `<audio>`), unlocked by the Threshold click, controlled by the gear dialogue; later hosts the radio's persistent playback state.
 
 ## 5. SITE MAP
@@ -114,7 +115,7 @@ Plus the December Dumke concert as Catalogue entry №1 (event entry, links to /
 
 - **Radio (art piece, not a link hub):** a database of sounds (`data/radio.json` — own recordings + public-domain works). Drag the dial → scrubs randomly between entries with static crossfade; when the dial stops, that entry plays. On/off switch. **Playback persists across the whole site** via the global audio manager + overlay architecture.
 - **Magic lantern:** click → room dims → artwork projected in circular vignette, advancing with mechanical clunk (carousel underneath).
-- **Back Room:** dim cramped storage scene, mostly-empty shelves for future objects; at least one unlabeled discoverable.
+- **Back Room:** dim cramped storage scene, mostly-empty shelves for future objects; at least one unlabeled discoverable. Opens as an in-shell **scene swap** (walking into another room), not an overlay — see §4.
 - **Cutscene upgrade:** launch may ship the lite in-engine "lights up" only; full first-visit video cutscene can arrive later (localStorage-gated, skippable, reduced-motion-aware).
 
 ## 9. BUILD ORDER
