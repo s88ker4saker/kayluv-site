@@ -1,0 +1,320 @@
+/*
+ * KAYLUV.SITE — main stylesheet (build step 2, SPEC §9)
+ *
+ * MOTION CONVENTION (SPEC §3, prefers-reduced-motion): every transition and
+ * every future idle-loop animation is authored inside a
+ * `@media (prefers-reduced-motion: no-preference)` block, so motion is
+ * opt-out-able from day one. A belt-and-braces global kill switch sits at the
+ * bottom of this file. Never declare animation/transition outside that query.
+ */
+
+:root {
+  /* Palette (ASSET_BRIEF §1) */
+  --paper: #F7F2E8;
+  --ink: #141414;
+  --kayluv-blue: #3078C0;
+  --fire-gold: #F0A800;
+  --fire-orange: #E85C10;
+  --fire-red: #C81E1E;
+
+  /* Fire-glow radii — CSS px, tuned for future transparent-PNG object art.
+     Contexts with other unit spaces (the SVG hotspot layer) override these. */
+  --glow-r1: 8px;
+  --glow-r2: 18px;
+  --glow-r3: 34px;
+
+  --font-display: "Cooper Black", "Windsor", "Cooper Std", Georgia, serif;
+  --font-body: "Iowan Old Style", Georgia, "Times New Roman", serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  overflow: hidden; /* the room viewport owns all scrolling */
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------- ROOM SHELL
+ * Canvas is 3200×2000 (16:10). Cover-fit (SPEC §3):
+ *   wide viewports  → width fits (100vw), top/bottom crop, vertically centered
+ *   narrow viewports → height fits (100dvh), sides overflow → horizontal pan
+ * Pan is native overflow-x scroll (touch works for free); js/room.js adds
+ * mouse-drag and centers the initial scroll position.
+ */
+.room-viewport {
+  position: fixed;
+  inset: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center; /* centered vertical crop on wide screens */
+  overscroll-behavior: none;
+  touch-action: pan-x;
+  scrollbar-width: none;
+}
+.room-viewport::-webkit-scrollbar { display: none; }
+
+.room-stage {
+  position: relative;
+  flex: none;
+  aspect-ratio: 3200 / 2000;
+  width: max(100vw, 160vh);  /* 160vh = height × canvas ratio 1.6 */
+  width: max(100vw, 160dvh);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.room-stage > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  -webkit-user-drag: none;
+}
+
+.hotspot-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ------------------------------------------------------ FIRE-GLOW LANGUAGE
+ * The one shared hover/focus treatment (SPEC §0/§6, ASSET_BRIEF §1): lamplight
+ * touching an object — gold core, orange bloom, red fringe. `.is-lit` lets JS
+ * light an element programmatically (e.g. future sound-cue sync).
+ *
+ * ONE language, TWO dialects:
+ *   .fire-glow (below)   — for HTML elements, i.e. the future transparent-PNG
+ *                          object art: drop-shadow hugs the art's silhouette.
+ *   #fire-glow-svg       — the same three shadows as an SVG feDropShadow
+ *                          filter (injected by js/room.js), used by the SVG
+ *                          hotspot shapes, because WebKit/Safari does not
+ *                          apply CSS filter() to elements inside an <svg>.
+ * If you retune one, retune both.
+ */
+.fire-glow:hover,
+.fire-glow:focus-visible,
+.fire-glow.is-lit {
+  filter:
+    drop-shadow(0 0 var(--glow-r1) rgba(240, 168, 0, 0.95))
+    drop-shadow(0 0 var(--glow-r2) rgba(232, 92, 16, 0.70))
+    drop-shadow(0 0 var(--glow-r3) rgba(200, 30, 30, 0.45));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .fire-glow { transition: filter 220ms ease; }
+}
+
+/* ------------------------------------------------------------------ HOTSPOTS
+ * Shapes live in the SVG hotspot layer (user space = the 3200×2000 canvas).
+ * Their glow is the #fire-glow-svg feDropShadow filter (see note above) —
+ * NOT the CSS .fire-glow class, which WebKit ignores inside <svg>. The
+ * hit-rect also takes a gold stroke + fill so the placeholder-era hover is
+ * unmistakable; once real object art exists these shapes can go back to
+ * fully invisible and the glow moves onto the art itself.
+ */
+.hotspot {
+  cursor: pointer;
+  outline: none;
+}
+
+.hotspot .hotspot-shape {
+  fill: transparent;
+  stroke: transparent;
+  stroke-width: 12;
+  pointer-events: all;
+}
+
+.hotspot:hover .hotspot-shape,
+.hotspot:focus-visible .hotspot-shape,
+.hotspot.is-lit .hotspot-shape {
+  fill: rgba(240, 168, 0, 0.22);
+  stroke: var(--fire-gold);
+  filter: url(#fire-glow-svg);
+}
+
+/* extra affordance so keyboard focus is unmistakable vs. hover */
+.hotspot:focus-visible .hotspot-shape {
+  stroke-dasharray: 26 14;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hotspot .hotspot-shape { transition: fill 220ms ease, stroke 220ms ease; }
+}
+
+/* ----------------------------------------------------------------- GEAR MENU
+ * Fixed top-right, always visible (SPEC §2). Panel = plain-text nav to every
+ * section (the complete non-mouse path, SPEC §3) + sound stubs.
+ */
+.gear-button {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 20;
+  width: 48px;
+  height: 48px;
+  padding: 8px;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(20, 20, 20, 0.25);
+}
+
+.gear-button svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.gear-button:hover,
+.gear-button[aria-expanded="true"] {
+  color: var(--fire-orange);
+  border-color: var(--fire-orange);
+}
+
+.gear-button:focus-visible {
+  outline: 3px solid var(--fire-gold);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .gear-button { transition: color 150ms ease, border-color 150ms ease, transform 300ms ease; }
+  .gear-button:hover { transform: rotate(30deg); }
+}
+
+.gear-panel {
+  position: fixed;
+  top: 76px;
+  right: 16px;
+  z-index: 19;
+  width: min(320px, calc(100vw - 32px));
+  max-height: calc(100dvh - 96px);
+  overflow-y: auto;
+  padding: 20px 24px;
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: 0 6px 24px rgba(20, 20, 20, 0.35);
+}
+
+.gear-panel h2 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.gear-panel nav ul {
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.gear-panel nav li { margin: 0 0 8px; }
+
+.gear-panel nav a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(20, 20, 20, 0.3);
+}
+
+.gear-panel nav a:hover,
+.gear-panel nav a:focus-visible {
+  color: var(--fire-orange);
+  border-bottom-color: var(--fire-orange);
+}
+
+.gear-panel a:focus-visible,
+.gear-panel button:focus-visible,
+.gear-panel input:focus-visible {
+  outline: 3px solid var(--fire-gold);
+  outline-offset: 2px;
+}
+
+.gear-panel .later {
+  color: rgba(20, 20, 20, 0.55);
+}
+.gear-panel .later a { color: inherit; }
+.gear-panel .later .tag {
+  font-size: 0.78rem;
+  font-style: italic;
+}
+
+.gear-panel .sound-controls {
+  border-top: 1px solid rgba(20, 20, 20, 0.2);
+  padding-top: 14px;
+}
+
+.sound-toggle {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  padding: 6px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.sound-toggle[aria-pressed="true"] {
+  background: var(--fire-gold);
+  border-color: var(--fire-orange);
+}
+
+.sound-volume-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.sound-volume-row input[type="range"] {
+  flex: 1;
+  accent-color: var(--fire-orange);
+}
+
+.gear-panel .stub-note {
+  margin: 12px 0 0;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: rgba(20, 20, 20, 0.55);
+}
+
+/* --------------------------------------------- REDUCED-MOTION KILL SWITCH
+ * Belt and braces on top of the authoring convention above: if any motion
+ * ever slips outside a no-preference block, this still neutralizes it.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+._*
+
+# Windows
+Thumbs.db
+
+# Editors
+*.swp
+.idea/
+.vscode/
+
+# Netlify local folder
+.netlify/
+
+# Just in case tooling ever sneaks in (stack is vanilla — SPEC §3)
+node_modules/
+*.log
