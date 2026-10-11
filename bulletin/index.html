@@ -4,16 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Bulletin · Kayluv</title>
-  <meta name="description" content="News and performances posted on the bulletin board of the Kayluv music publishing house.">
+  <meta name="description" content="News, performances, and where to hear Kayluv — posted on the bulletin board of the Kayluv music publishing house.">
   <link rel="stylesheet" href="/css/page.css">
+  <link rel="stylesheet" href="/css/bulletin.css">
 </head>
 <body>
   <p class="return-link"><a href="/">&larr; Return to the Shop</a></p>
   <!-- Single source of section content: the overlay router extracts this
-       [data-overlay-root] fragment; direct visits render the whole page. -->
+       [data-overlay-root] fragment; direct visits render the whole page.
+       Content is populated by js/bulletin.js from data/notices.json and
+       data/listen-links.json — see that file for the init contract shared
+       by this standalone load and the overlay-injection path. -->
   <main data-overlay-root>
     <h1>The Bulletin</h1>
-    <p class="placeholder-note">Fresh notices are at the printer&rsquo;s. News and performances will be posted here.</p>
+
+    <section class="bulletin-notices" data-notices aria-label="Notices">
+      <p class="overlay-loading">Fetching the pages&hellip;</p>
+    </section>
+
+    <section class="bulletin-listen" aria-label="Where to hear Kayluv">
+      <h2>Where the House&rsquo;s Recordings May Be Heard</h2>
+      <ul class="bulletin-listen-card" data-listen-links></ul>
+    </section>
+
+    <section class="bulletin-signup" aria-label="Stay in touch" data-signup-slot>
+      <h2>Stay in Touch</h2>
+      <p class="bulletin-pending-note">A proper subscription card is being fitted for this slot. In the meantime, the links above are the surest way to follow along.</p>
+    </section>
   </main>
+
+  <script src="/js/bulletin.js" defer></script>
 </body>
 </html>

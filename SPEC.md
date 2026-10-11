@@ -6,12 +6,12 @@
 
 ## 1. PROJECT IN ONE PARAGRAPH
 
-A fan-facing portfolio/music hub for Kayluv (presenter identity of composer Caleb Martin), built as an immersive worldbuilt site: a turn-of-the-century music publishing house rendered as a point-and-click illustrated room. The visitor enters the shop; every section of the site is a physical object in the room. The catalog runs backward in time from the December Dumke concert. The house doctrine resolving all visual-era inconsistency: **the shop has been open 120 years and never fully redecorated** (Victorian fixtures, 1930s radio, 1970s psychedelic signage coexist deliberately — Ives-style collage as interior design).
+A fan-facing portfolio/music hub for Kayluv (presenter identity of composer Caleb Martin), built as an immersive worldbuilt site: a turn-of-the-century music publishing house rendered as a point-and-click illustrated room. The visitor enters the shop; every section of the site is a physical object in the room. The catalog runs backward in time from the December recital. The house doctrine resolving all visual-era inconsistency: **the shop has been open 120 years and never fully redecorated** (Victorian fixtures, 1930s radio, 1970s psychedelic signage coexist deliberately — Ives-style collage as interior design).
 
 ## 2. LOCKED DECISIONS (do not re-derive)
 
 - **Names:** Caleb Martin = legal/professional (credentials, scores, resume). Kayluv = presenter identity ("Kayluv presents [Piece]", "Kayluv and the [Ensemble]").
-- **Timeline:** catalog ordered backward in time from the December Dumke concert (entry №1).
+- **Timeline:** catalog ordered backward in time from the December recital (entry №1).
 - **Structure:** point-and-click shop interior as hub; publishing-house frame.
 - **Till and Ledger are two separate objects** — cash register at the store counter (→ Counter/downloads) vs. floating book on a lectern (→ Catalogue).
 - **Portrait, not voiced shopkeeper** for the Proprietor/about page.
@@ -49,7 +49,7 @@ A fan-facing portfolio/music hub for Kayluv (presenter identity of composer Cale
 
 ```
 /                         Threshold → Cutscene (first visit) → SHOP INTERIOR (hub shell)
-/catalogue/               The Catalogue (ledger ToC, backward from Dumke)
+/catalogue/               The Catalogue (ledger ToC, backward from the December recital)
 /catalogue/[slug]/        Folios — one real page per piece
 /counter/                 Pay-what-you-will scores (Gumroad)
 /bulletin/                News & performances (JSON-driven)
@@ -109,7 +109,9 @@ Single source: `data/catalog.json`. Folio pages and Catalogue ToC generate from 
 1. *Angel or Alien* — score ✅ art ✅ audio ⏳
 2. *Day by Day* — score ✅ art ✅ audio ✅
 3. *Run All Night* — score ✅ art ✅ audio ⏳
-Plus the December Dumke concert as Catalogue entry №1 (event entry, links to /bulletin/ until it becomes an archival entry). Senior-project pieces join the JSON as they're completed.
+Plus the December 11, 2026 recital — First United Methodist Church, Salt Lake City, 7:30 pm — as Catalogue entry №1 (event entry, links to /bulletin/ until it becomes an archival entry). Senior-project pieces join the JSON as they're completed.
+
+*(Venue note: this recital was originally booked at Dumke Recital Hall; it has since moved to First United Methodist Church, SLC. The catalogue-No.-1-anchors-to-the-December-event rule is unchanged — only the venue name is. Updated 2026-07-11; older commit messages/history may still say "Dumke.")*
 
 ## 8. POST-LAUNCH FEATURES (architecture supports now, build later)
 
@@ -124,7 +126,7 @@ Plus the December Dumke concert as Catalogue entry №1 (event entry, links to /
 2. Shell: room container (cover-fit 3200×2000 placeholder), SVG hotspot overlay w/ percentage coords, fire-glow hover class, gear menu (nav + sound stub).
 3. Overlay router (fetch + pushState + standalone fallback pages) — **before** any destination pages.
 4. Ledger procedural animation (bob/glow/tilt/open) against placeholder art.
-5. Catalogue lite page-fold + catalog.json wiring + 3 launch folios + Dumke entry.
+5. Catalogue lite page-fold + catalog.json wiring + 3 launch folios + December-recital entry.
 6. Counter (Gumroad), Bulletin (JSON), Correspondence (Kit embed), Proprietor (flip), /listen/.
 7. Sound layer: audio manager, per-object cues, gear volume control.
 8. Threshold + lite lights-up intro; sprite objects swapped in as art completes.

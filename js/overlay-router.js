@@ -11,9 +11,23 @@
  * Content is authored once, in the standalone pages (/counter/index.html
  * etc.) — this router is just a reader of those pages.
  *
- * History invariant: opening from the room PUSHES one entry; navigating
- * overlay→overlay REPLACES it. The entry beneath an open overlay is
- * therefore always the room, so "close" is always exactly history.back().
+ * History invariant: opening from the room PUSHES one entry; overlay→overlay
+ * REPLACES it. The entry beneath an open overlay is therefore always the
+ * room, so "close" is always exactly history.back().
+ *
+ * Deep links: the shell only ever boots at '/', so a URL hash is the only
+ * way to request a section before any click happens — e.g. sharing
+ * `/#bulletin` (Instagram bio, a QR code) opens straight to that overlay.
+ * On open, the hash is replaced with the section's real path (SPEC §5), so
+ * from then on it behaves exactly like any other overlay open.
+ *
+ * JSON-driven sections (SPEC §6: Bulletin, later Catalogue): a fragment
+ * inserted here is static markup — any <script> inside it does not execute
+ * (standard DOM behavior for cloned/imported nodes). After inserting a
+ * fragment this router dispatches "kayluv:overlay-content" on `document`
+ * with { path, root } so a page-specific module (e.g. js/bulletin.js),
+ * already loaded in the shell, can populate it. The same module also
+ * self-inits on DOMContentLoaded for that page's standalone direct-load.
  */
 (function () {
   "use strict";
@@ -86,6 +100,9 @@
       body.appendChild(entry.fragment.cloneNode(true));
       body.scrollTop = 0;
       body.focus();
+      document.dispatchEvent(new CustomEvent("kayluv:overlay-content", {
+        detail: { path: path, root: body }
+      }));
     }).catch(function () {
       if (seq !== openSeq) return;
       // page missing or unreachable: fall back to a real navigation so the
@@ -172,4 +189,17 @@
 
   closeButton.addEventListener("click", requestClose);
   scrim.addEventListener("click", requestClose);
+
+  /* Deep link on initial load: '/#bulletin' etc. (see note at top of file).
+     requestClose() always does history.back() expecting a room ('/') entry
+     beneath the overlay (the history invariant above) — a lone "replace" to
+     the section path would skip that entry, so Close/Escape would navigate
+     out of the site entirely instead of back to the room. Establish '/' as
+     its own entry first, then push the section on top of it. */
+  (function openFromHash() {
+    var hash = location.hash.slice(1);
+    if (!/^[a-z0-9-]+$/i.test(hash)) return;
+    history.replaceState({}, "", "/");
+    openOverlay("/" + hash + "/", "push");
+  })();
 })();

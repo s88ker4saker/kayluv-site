@@ -26,7 +26,7 @@ Each interactive object needs: (a) static base PNG (transparent), (b) idle anima
 |---|---|---|---|
 | 1 | **Ledger + lectern** | Book: closed, opening (3–5 hinge frames or layered lid), open. Lectern static. | Motion (bob, glow, tilt) is CODE, not frames — supply the book as clean layered art (cover / pages / spine) so code can move parts. THE hero object; most prominent lighting in the room. |
 | 2 | **Till / cash register** | Static + 1 small hover sparkle/glow frame | Ornate brass register, Victorian-era. Sits at the counter, clearly separate furniture from the lectern. |
-| 3 | **Bulletin board** | Static + idle flutter loop (2–4 frames) | Cork + broadsides pinned at angles. Leave a clear central slot where the Dumke notice (red accent allowed) is composited by code. |
+| 3 | **Bulletin board** | Static + idle flutter loop (2–4 frames) | Cork + broadsides pinned at angles. Leave a clear central slot where the December-recital notice (red accent allowed) is composited by code. |
 | 4 | **Letter slot / pigeonholes** | Static + hover glow | Heart seal motif somewhere on it. |
 | 5 | **Portrait (framed)** | Static + blink frame | Kayluv persona portrait; ornate frame. |
 | 6 | **Cuckoo clock** | Static + tick loop + cuckoo-pop loop (4–8 frames) | Hands rendered as separate layers if possible (code sets real time); may be charmingly mis-set otherwise. |
@@ -40,7 +40,7 @@ Each interactive object needs: (a) static base PNG (transparent), (b) idle anima
 
 - **Threshold screen:** door + star-circle device as door sign + wordmark. Paper-white, quiet.
 - **Catalog plates (3 at launch):** *Angel or Alien*, *Day by Day*, *Run All Night* — illustrated cover per piece, E.T. Paull / Tin Pan Alley chromolithograph grammar filtered through the collage style; colophon stamped on each. Consistent plate dimensions (suggest 1200×1600, 3:4).
-- **Dumke concert entry art:** Catalogue entry №1 + Bulletin centerpiece. Red permitted here.
+- **December-recital entry art:** Catalogue entry №1 + Bulletin centerpiece. Red permitted here.
 - **Folio-back texture:** a shared "back of the sheet music folio" layout/texture for program notes pages.
 - **Colophon SVG:** the star-circle device as clean scalable vector (stamp component used everywhere).
 - **Heart favicon** + letter-seal version.
@@ -52,7 +52,7 @@ Each interactive object needs: (a) static base PNG (transparent), (b) idle anima
 
 1. Room background + furniture layout (composition first — hotspot coordinates depend on it; placeholder-quality is fine for coding to begin).
 2. Ledger layered art (hero object; unblocks the custom animation).
-3. Three catalog plates + Dumke entry art (unblocks the Catalogue).
+3. Three catalog plates + December-recital entry art (unblocks the Catalogue).
 4. Colophon SVG + heart favicon (used across everything).
 5. Remaining object statics, then idle/hover loops incrementally — the site works with static objects; animation is enhancement, added object by object.
 6. Sound cues (can be sourced/recorded in one batch session).

@@ -1,0 +1,8 @@
+{
+  "links": [
+    { "platform": "Spotify", "url": "" },
+    { "platform": "Apple Music", "url": "" },
+    { "platform": "YouTube", "url": "" },
+    { "platform": "Instagram", "url": "" }
+  ]
+}

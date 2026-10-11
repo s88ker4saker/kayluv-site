@@ -1,0 +1,88 @@
+/*
+ * KAYLUV.SITE — Bulletin board content styling (Priority 1 build, 2026-07-11)
+ * Loaded by both the shell (index.html, for overlay-injected content) and
+ * the standalone /bulletin/ page — no CSS vars redeclared here, both
+ * parents already define the palette (css/main.css / css/page.css).
+ */
+
+.bulletin-notices {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  margin: 0 0 40px;
+}
+
+.notice {
+  padding: 18px 20px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  background: rgba(240, 168, 0, 0.06);
+}
+
+.notice-when {
+  margin: 0 0 4px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--fire-orange);
+}
+
+.notice h3 {
+  margin: 0 0 4px;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+}
+
+.notice-venue {
+  margin: 0 0 8px;
+  font-style: italic;
+  color: rgba(20, 20, 20, 0.7);
+}
+
+.notice p:last-of-type {
+  margin-bottom: 0;
+}
+
+.bulletin-listen {
+  margin: 0 0 40px;
+}
+
+.bulletin-listen h2,
+.bulletin-signup h2 {
+  margin: 0 0 12px;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+}
+
+.bulletin-listen-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  margin: 0;
+  padding: 16px 20px;
+  list-style: none;
+  border: 2px dashed var(--kayluv-blue);
+  border-radius: 6px;
+  background: rgba(48, 120, 192, 0.05);
+}
+
+.bulletin-listen-card a {
+  font-weight: 600;
+}
+
+.listen-link-pending {
+  color: rgba(20, 20, 20, 0.5);
+  font-style: italic;
+}
+
+.bulletin-signup {
+  padding: 18px 20px;
+  border: 2px dashed rgba(20, 20, 20, 0.35);
+  border-radius: 6px;
+}
+
+.bulletin-pending-note {
+  margin: 0;
+  font-style: italic;
+  color: rgba(20, 20, 20, 0.6);
+}

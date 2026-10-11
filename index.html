@@ -6,6 +6,9 @@
   <title>Kayluv · Music Publishing House</title>
   <meta name="description" content="Kayluv — a music publishing house, open 120 years and never fully redecorated. Step into the shop.">
   <link rel="stylesheet" href="css/main.css">
+  <!-- Per-section content stylesheets, needed here too because overlay
+       content is injected into this document, not loaded as a new page. -->
+  <link rel="stylesheet" href="css/bulletin.css">
 </head>
 <body>
   <h1 class="visually-hidden">Kayluv — Music Publishing House</h1>
@@ -76,5 +79,9 @@
   <script src="js/room.js" defer></script>
   <script src="js/gear-menu.js" defer></script>
   <script src="js/overlay-router.js" defer></script>
+  <!-- Per-section content modules (JSON-driven sections, SPEC §6): loaded
+       here so they're already present in the shell when the overlay router
+       injects that section's fragment and dispatches kayluv:overlay-content. -->
+  <script src="js/bulletin.js" defer></script>
 </body>
 </html>
