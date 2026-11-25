@@ -57,6 +57,16 @@ body{
 }
 .page{position:relative;z-index:1}
 
+/* TELL FIX: the Moran carries paper grain and 150-year-old ink, while the
+   type is crisp vector. One noise layer over everything puts them on the
+   same surface. feTurbulence as a data URI, so there is no asset to load. */
+.grain{
+  position:fixed;inset:0;z-index:5;pointer-events:none;
+  opacity:.17;mix-blend-mode:multiply;
+  background-size:170px 170px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='170' height='170'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='170' height='170' filter='url(%23n)'/></svg>");
+}
+
 /* -------------------------------------------------------------- OPENING */
 .opening{
   min-height:100dvh;
@@ -76,10 +86,6 @@ body{
 }
 .titleblock,.focus,.opening-actions{position:relative;z-index:1;width:100%;max-width:34rem}
 
-.presents{
-  margin:0 0 .6rem;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);text-shadow:var(--halo-light);
-}
 /* The title and the Deseret line are poster artwork, not type. They bring
    their own outlines, so they need no halo to sit on the painting. */
 .deseret{display:block;width:min(100%,30rem);margin:0 auto .55rem}
@@ -97,9 +103,13 @@ h1 img{display:block;width:100%;margin:0 auto}
 /* ----------------------------------------------- THE TWO HIGHLIGHTS ---- */
 .focus{margin-top:auto}
 
+/* Written above the note in the same hand, rather than a third set of
+   tracked small caps. */
 .countdown-label{
-  margin:0 0 .8rem;font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;
+  margin:0 0 .45rem;
+  font-family:var(--hand);font-size:1.12rem;
   color:var(--cream);text-shadow:var(--halo-dark);
+  transform:rotate(-1.2deg);
 }
 .note{
   display:inline-flex;align-items:center;justify-content:center;
@@ -121,6 +131,8 @@ h1 img{display:block;width:100%;margin:0 auto}
 .duo{
   display:flex;align-items:flex-end;justify-content:center;
   gap:clamp(.5rem,3vw,1.6rem);
+  /* off the page centre line, so the stack stops being a column */
+  margin-left:clamp(-2.4rem,-4vw,-1rem);
 }
 .note-col{display:flex;flex-direction:column;align-items:center}
 
@@ -144,7 +156,7 @@ h1 img{display:block;width:100%;margin:0 auto}
 /* Tonearm track, not a media widget: a hairline that fills with fire gold.
    Native <input type="range"> underneath so keyboard seeking works. */
 .seekbar{
-  width:min(100%,19rem);margin:1.4rem auto 0;
+  width:min(100%,19rem);margin:.9rem auto 0;
 }
 .seekbar[hidden]{display:none}
 #seek{
@@ -176,53 +188,9 @@ h1 img{display:block;width:100%;margin:0 auto}
   font-variant-numeric:tabular-nums;
 }
 
-.opening-actions{position:relative;z-index:1;width:100%;max-width:34rem}
-
-.presents{
-  margin:0 0 .6rem;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--ink);text-shadow:var(--halo-light);
-}
-/* The title and the Deseret line are poster artwork, not type. They bring
-   their own outlines, so they need no halo to sit on the painting. */
-.deseret{display:block;width:min(100%,30rem);margin:0 auto .55rem}
-h1{margin:0}
-h1 img{display:block;width:100%;margin:0 auto}
-.subtitle{
-  margin:.9rem 0 .15rem;font-size:1.02rem;font-weight:600;line-height:1.3;
-  color:var(--ink);text-shadow:var(--halo-light);
-}
-.tagline{
-  margin:0;font-size:.95rem;font-style:italic;
-  color:var(--ink);text-shadow:var(--halo-light);
-}
-
-/* ----------------------------------------------- THE TWO HIGHLIGHTS ---- */
-.focus{margin-top:auto}
-
-.countdown-label{
-  margin:0 0 .8rem;font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;
-  color:var(--cream);text-shadow:var(--halo-dark);
-}
-.note{
-  display:inline-flex;align-items:center;justify-content:center;
-  width:8.4rem;height:8.4rem;padding:.4rem;
-  background-image:linear-gradient(160deg,#F9EE9F 0%,#F2DE78 100%);
-  box-shadow:0 12px 26px rgba(16,12,9,.45),0 1px 0 rgba(255,255,255,.5) inset;
-  transform:rotate(-2.4deg);
-}
-.note-number{font-family:var(--hand);font-size:4.2rem;line-height:1;color:#2B2415}
-.note.is-text .note-number{font-size:1.9rem;line-height:1.15}
-.note-link{
-  display:inline-block;margin-top:.9rem;font-weight:700;
-  color:var(--cream);text-shadow:var(--halo-dark);
-}
-
-/* The lyric is the control. No button chrome — it reads as the line it is,
-   and warms to the fire gold on hover/focus (ASSET_BRIEF §1: the fire
-   gradient is the interactive colour). */
 .song-caption{
   display:inline-block;
-  margin:.95rem 0 0;padding:.3rem .2rem;
+  margin:.55rem 0 0;padding:.3rem .2rem;
   font-family:var(--serif);font-size:1.05rem;
   background:none;border:0;cursor:pointer;
   color:var(--cream);text-shadow:var(--halo-dark);
@@ -231,7 +199,7 @@ h1 img{display:block;width:100%;margin:0 auto}
 .song-caption:hover,.song-caption:focus-visible{color:#F0A800}
 .song-caption:hover em,.song-caption:focus-visible em{border-bottom-color:#F0A800}
 
-.opening-actions{margin-top:1.6rem}
+.opening-actions{margin-top:3.4rem}
 .pill{
   font-family:var(--serif);font-size:.96rem;
   padding:.62rem 1.25rem;min-height:44px;cursor:pointer;
@@ -244,8 +212,8 @@ h1 img{display:block;width:100%;margin:0 auto}
  * Still over the painting — only the form controls carry a surface. */
 .tail{
   position:relative;z-index:1;
-  max-width:34rem;margin:0 auto;text-align:center;
-  padding:4rem 20px calc(env(safe-area-inset-bottom,0px) + 3rem);
+  max-width:26rem;margin:0 auto;text-align:center;
+  padding:7rem 20px calc(env(safe-area-inset-bottom,0px) + 3rem);
 }
 .tail-head{
   margin:0 0 .25rem;font-size:1.25rem;font-weight:700;
@@ -319,8 +287,16 @@ button[type="submit"]{
 .d-program{margin:.5rem 0 0;padding-left:1.4rem}
 .d-program li{margin:0 0 .4rem;font-size:1rem}
 .d-program span{display:block;font-size:.84rem;font-style:italic;color:rgba(236,226,213,.72)}
-.d-cast{line-height:1.7}
-.d-come{margin-top:1.4rem;font-style:italic;color:#F6B9B5}
+.d-lyric{
+  margin:0 0 1.3rem;font-size:1.06rem;line-height:1.65;font-style:italic;
+}
+.d-head{
+  margin:1.5rem 0 .3rem;font-variant:small-caps;letter-spacing:.05em;
+  font-size:1.02rem;color:#F6B9B5;
+}
+.d-roster{line-height:1.6}
+.d-cast{line-height:1.7;margin-top:1.3rem}
+.d-come{margin:0 0 1.2rem;font-style:italic;color:#F6B9B5}
 .d-fine{
   margin-top:1.8rem;padding-top:1rem;font-size:.78rem;line-height:1.5;
   color:rgba(236,226,213,.68);border-top:1px solid rgba(240,232,220,.18);

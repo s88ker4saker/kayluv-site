@@ -16,10 +16,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap">
-<link rel="stylesheet" href="/css/concert.css">
+<link rel="stylesheet" href="/css/concert.css?v=1795581928">
 </head>
 <body>
 
+<div class="grain" aria-hidden="true"></div>
 <div class="backdrop" role="img" aria-label="Thomas Moran's 1875 chromolithograph of the Great Salt Lake: a red sun low over the water, mountains beyond, a rocky foreground."></div>
 
 <div class="page">
@@ -27,7 +28,6 @@
   <section class="opening">
 
     <div class="titleblock">
-      <p class="presents">Kayluv presents</p>
       <!-- Both lockups are Illustrator exports of the poster artwork, so the
            Windsor letterforms and the layered Deseret outline match exactly.
            They carry their own gold/ink outlines, which is also what makes
@@ -74,7 +74,7 @@
         <em>Day by day, I know I&rsquo;ll be with you&hellip;</em>
       </button>
 
-      <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
+      <audio id="audio" preload="metadata" src="/assets/audio/day-by-day.mp3"></audio>
     </div>
 
     <div class="opening-actions">
@@ -84,13 +84,13 @@
   </section>
 
   <section class="tail">
-    <h2 class="tail-head">Stay in touch</h2>
-    <p class="tail-note">News about the concert, recordings, and future releases.</p>
+    <h2 class="tail-head">Hear ye, hear ye!</h2>
+    <p class="tail-note">Input your email below to stay in the know for future projects and releases.</p>
     <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
       <input type="hidden" name="form-name" value="signup">
       <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <label class="sr-only" for="email">Email address</label>
-      <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
+      <input id="email" type="email" name="email" placeholder="yourcoolemail@something.com" required autocomplete="email" inputmode="email">
       <button type="submit">Sign up</button>
       <p class="form-msg" id="form-msg" role="status" hidden></p>
     </form>
@@ -105,8 +105,19 @@
   <h2 id="more-title">Mythmaking of Deseret.</h2>
 
   <p class="d-lead">Eleven new works exploring life, legend, and myth in Deseret.</p>
-  <p class="d-lead">Featuring performances from organ, saxophone quartet, barbershop
-     quartet, voice and piano, cellos and electronics, and voice and guitar.</p>
+
+  <p class="d-head">Featuring performances from:</p>
+  <p class="d-roster">organ &middot; saxophone quartet &middot; barbershop quartet<br>
+     voice and piano &middot; cellos and electronics<br>
+     voice and guitar</p>
+
+  <p class="d-head">Also featuring:</p>
+  <p class="d-roster">Mormon pioneers &middot; miracle seagulls<br>
+     the Great Salt Lake &middot; the Walker weather sign<br>
+     Uinta Basin UFOs &middot; angels (or aliens?)<br>
+     the star Kolob &middot; divine light<br>
+     a dust-bowl future &middot; Charles Ives &middot; Kurt Weill<br>
+     &amp; the birth and death of the universe</p>
 
   <div class="d-facts">
     <p class="f-date">Friday, December 11, 2026</p>
@@ -142,9 +153,14 @@
 <dialog id="song-info" class="sheet-dialog" aria-labelledby="song-title">
   <button type="button" class="dialog-close" data-close aria-label="Close">&times;</button>
   <h2 id="song-title">Day by Day</h2>
-  <p class="d-lead"><em>Day by day, I know I&rsquo;ll be with you.</em></p>
 
-  <h3>Sung by</h3>
+  <p class="d-lyric">day by day,<br>
+     come what may,<br>
+     yes, day by day,<br>
+     I know I&rsquo;ll be with you.</p>
+
+  <p class="d-come">Hear this and other great barbershop works at the Dec.&nbsp;11th concert.</p>
+
   <p class="d-cast">
     Ricky Cornejo, <i>tenor</i><br>
     Jonah Grey, <i>lead</i><br>
@@ -152,14 +168,11 @@
     Logan Luker, <i>bass</i>
   </p>
 
-  <p class="d-come">Come hear this piece live at the concert.</p>
-
-  <p class="d-fine">Phonograph plate: <cite>O, Caruso!</cite>, The Metropolitan
-     Museum of Art, released under CC0.</p>
+  <p class="d-fine"><cite>O, Caruso!</cite>, The Metropolitan Museum of Art, released under CC0.</p>
 </dialog>
 
-<script src="/js/countdown.js" defer></script>
-<script src="/js/signup.js" defer></script>
-<script src="/js/page.js" defer></script>
+<script src="/js/countdown.js?v=1795581928" defer></script>
+<script src="/js/signup.js?v=1795581928" defer></script>
+<script src="/js/page.js?v=1795581928" defer></script>
 </body>
 </html>
