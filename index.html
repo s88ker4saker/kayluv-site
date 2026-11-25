@@ -20,55 +20,106 @@
 </head>
 <body>
 
-<header class="hero">
-  <div class="hero-inner">
-    <p class="presents">Kayluv presents</p>
-    <h1>Mythmaking<br>of Deseret</h1>
-    <p class="subtitle">The Senior Composition Concert of Caleb Martin</p>
-    <p class="tagline"><em>or,</em> How I Learned to Love Utah</p>
-  </div>
-</header>
+<!-- The painting sits behind everything and stays put while the page moves. -->
+<div class="backdrop" role="img" aria-label="Thomas Moran's 1875 chromolithograph of the Great Salt Lake: a red sun low over the water, mountains beyond, rocky foreground."></div>
 
-<main>
+<div class="page">
 
-  <section class="essentials" aria-label="Concert details">
-    <p class="date">Friday, December&nbsp;11, 2026</p>
-    <p class="time">7:30 PM &middot; Doors at 7:00</p>
-    <p class="venue">First United Methodist Church</p>
-    <p class="address">
-      <a href="https://maps.google.com/?q=First+United+Methodist+Church,+203+S+200+E,+Salt+Lake+City,+UT">203 S 200 E, Salt Lake City</a>
-    </p>
-    <p class="admission">Free Admission</p>
-  </section>
+  <section class="opening">
+    <div class="opening-top">
+      <p class="presents">Kayluv presents</p>
+      <h1>Mythmaking<br>of Deseret</h1>
+      <p class="subtitle">The Senior Composition Concert of Caleb Martin</p>
+      <p class="tagline"><em>or,</em> How I Learned to Love Utah</p>
 
-  <section class="countdown" aria-label="Countdown to the concert">
-    <p class="countdown-label" id="countdown-label">days until the concert</p>
-    <div class="note" id="note" role="status">
-      <span class="note-number" id="note-number">&nbsp;</span>
+      <div class="essentials">
+        <p class="date">Friday, December&nbsp;11, 2026</p>
+        <p class="time">7:30 PM &middot; Doors at 7:00</p>
+        <p class="venue">First United Methodist Church<br>Salt Lake City</p>
+        <p class="admission">Free Admission</p>
+        <button type="button" class="more-btn" id="more-btn" aria-haspopup="dialog">
+          More about the concert
+        </button>
+      </div>
+    </div>
+
+    <div class="opening-note">
+      <p class="countdown-label" id="countdown-label">days until the concert</p>
+      <div class="note" id="note" role="status">
+        <span class="note-number" id="note-number">&nbsp;</span>
+      </div>
     </div>
   </section>
 
-  <section class="signup" aria-labelledby="signup-heading">
-    <h2 id="signup-heading">Stay in touch</h2>
-    <p class="signup-note">News about the concert, recordings, and future releases.</p>
-    <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
-      <input type="hidden" name="form-name" value="signup">
-      <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-      <label class="sr-only" for="email">Email address</label>
-      <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
-      <button type="submit">Sign up</button>
-      <p class="form-msg" id="form-msg" role="status" hidden></p>
-    </form>
+  <section class="sheet">
+
+    <div class="player" aria-labelledby="player-heading">
+      <h2 id="player-heading">&ldquo;Day by Day&rdquo;</h2>
+      <p class="player-sub">A barbershop song from the program &mdash; <em>day by day, I know I&rsquo;ll be with you.</em></p>
+      <button type="button" class="play-btn" id="play-btn" aria-pressed="false">
+        <span class="play-icon" aria-hidden="true"></span>
+        <span class="play-text" id="play-text">Play</span>
+      </button>
+      <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
+      <p class="player-credit">
+        Ricky Cornejo, <i>tenor</i> &middot; Jonah Grey, <i>lead</i><br>
+        Caleb Booth, <i>baritone</i> &middot; Logan Luker, <i>bass</i>
+      </p>
+    </div>
+
+    <div class="signup">
+      <h2 id="signup-heading">Stay in touch</h2>
+      <p class="signup-note">News about the concert, recordings, and future releases.</p>
+      <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
+        <input type="hidden" name="form-name" value="signup">
+        <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+        <label class="sr-only" for="email">Email address</label>
+        <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
+        <button type="submit">Sign up</button>
+        <p class="form-msg" id="form-msg" role="status" hidden></p>
+      </form>
+      <p class="social">
+        <a href="https://instagram.com/kayluv2u" rel="me noopener">Instagram &mdash; @kayluv2u</a>
+      </p>
+    </div>
+
   </section>
+</div>
 
-</main>
+<dialog id="more" class="more-dialog" aria-labelledby="more-title">
+  <button type="button" class="dialog-close" id="dialog-close" aria-label="Close">&times;</button>
+  <h2 id="more-title">Mythmaking of Deseret</h2>
 
-<footer>
-  <p>Supported by the Undergraduate Research Opportunities Program (UROP), Office of Undergraduate Research, University of Utah.</p>
-  <p class="credit">Background: Thomas Moran, <cite>The Great Salt Lake of Utah</cite>, chromolithograph by L.&nbsp;Prang &amp; Co., 1875. The New York Public Library.</p>
-</footer>
+  <p class="d-lead">Eleven new works exploring life, legend, and myth in Deseret &mdash;
+     for organ, saxophone quartet, barbershop quartet, voice &amp; piano,
+     cellos &amp; electronics, and more.</p>
+
+  <h3>When</h3>
+  <p>Friday, December 11, 2026<br>Doors at 7:00 PM &middot; Concert at 7:30 PM</p>
+
+  <h3>Where</h3>
+  <p>First United Methodist Church<br>
+     <a href="https://maps.google.com/?q=First+United+Methodist+Church,+203+S+200+E,+Salt+Lake+City,+UT">203 S 200 E, Salt Lake City</a></p>
+
+  <h3>Admission</h3>
+  <p>Free and open to the public.</p>
+
+  <h3>The program</h3>
+  <p>Running order, performers, and notes on each piece will be published at
+     <a href="/program">kayluvpresents.com/program</a> before the concert.</p>
+
+  <h3>Support</h3>
+  <p>This work was supported by the Undergraduate Research Opportunities Program
+     (UROP) from the Office of Undergraduate Research at the University of Utah,
+     awarded to Caleb Martin.</p>
+
+  <h3>Image</h3>
+  <p>Thomas Moran, <cite>The Great Salt Lake of Utah</cite>, chromolithograph by
+     L.&nbsp;Prang &amp; Co., 1875. The New York Public Library.</p>
+</dialog>
 
 <script src="/js/countdown.js" defer></script>
 <script src="/js/signup.js" defer></script>
+<script src="/js/page.js" defer></script>
 </body>
 </html>

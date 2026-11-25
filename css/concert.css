@@ -1,10 +1,16 @@
 /*
  * kayluvpresents.com — concert page (Mythmaking of Deseret, Dec 11 2026)
- * Mobile-portrait first; desktop centres the same column.
- * Colours sampled from the printed poster, not invented:
- *   title red #C6181E  (matches ASSET_BRIEF fire-red #C81E1E)
- *   ink      #241A1A  (warm near-black measured in the poster text block)
- *   paper    #F7F2E8  (existing project token, ASSET_BRIEF "warm off-white")
+ *
+ * The Moran painting is the ground the page stands on: a fixed backdrop
+ * behind everything, with the opening screen floating over it and the
+ * lower "sheet" rising out of it on a gradient sampled from the painting.
+ *
+ * Colours are measured, not invented:
+ *   --red    #C6181E  sampled from the printed poster's title
+ *   --ink    #241A1A  sampled from the poster's text block
+ *   sand/stone stops below are painting samples lifted toward white for
+ *   legibility; the source sample and the lift are noted on each line.
+ *
  * MOTION: every transition/animation lives inside a
  * prefers-reduced-motion: no-preference block. Keep it that way.
  */
@@ -12,9 +18,11 @@
 :root{
   --red:#C6181E;
   --ink:#241A1A;
-  --paper:#F7F2E8;
-  --muted:rgba(36,26,26,.62);
-  --rule:rgba(36,26,26,.18);
+  --sand-light:#ECE2D5;  /* sky cream #D4BFA3, lifted 55% toward white */
+  --sand:#E1D2BE;        /* sky cream #D4BFA3, lifted 30% */
+  --stone:#C8C2B8;       /* lake pale  #A49A89, lifted 40% */
+  --muted:rgba(36,26,26,.66);
+  --rule:rgba(36,26,26,.2);
   --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
   --hand:"Caveat","Bradley Hand","Segoe Script",cursive;
 }
@@ -23,7 +31,7 @@
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;
-  background:var(--paper);
+  background:var(--sand);
   color:var(--ink);
   font-family:var(--serif);
   font-size:18px;
@@ -32,157 +40,200 @@ body{
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .hp{position:absolute;left:-9999px}
 
-/* ------------------------------------------------------------------ HERO */
-.hero{
-  position:relative;
-  min-height:52dvh;
-  display:flex;
-  align-items:flex-start;
-  background-image:url("/assets/sky-mobile.webp");
+/* -------------------------------------------------------------- BACKDROP
+ * A fixed element rather than background-attachment:fixed, which iOS
+ * Safari renders badly. */
+.backdrop{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  background-image:url("/assets/painting-mobile.webp");
   background-size:cover;
   background-position:center center;
-  padding:calc(env(safe-area-inset-top,0px) + 7vh) 22px 9vh;
 }
-/* light scrim so the title holds up on any crop and in daylight */
-.hero::after{
+.page{position:relative;z-index:1}
+
+/* --------------------------------------------------------------- OPENING */
+.opening{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  padding:calc(env(safe-area-inset-top,0px) + 5vh) 20px 6vh;
+}
+/* soft warm veil, strongest behind the type at the top, gone by mid-screen */
+.opening::before{
   content:"";
   position:absolute;inset:0;
-  background:linear-gradient(to bottom,rgba(247,242,232,.55) 0%,rgba(247,242,232,.18) 48%,rgba(247,242,232,0) 100%);
+  pointer-events:none;
+  background:linear-gradient(to bottom,
+    rgba(236,226,213,.70) 0%,
+    rgba(236,226,213,.48) 30%,
+    rgba(236,226,213,.20) 56%,
+    rgba(236,226,213,0) 78%);
 }
-.hero-inner{position:relative;z-index:1;width:100%;max-width:34rem;margin:0 auto;text-align:center}
+.opening-top,.opening-note{position:relative;z-index:1}
+.opening-top{max-width:34rem;margin:0 auto;text-align:center;width:100%}
 
 .presents{
-  margin:0 0 .7rem;
-  font-size:.82rem;
-  letter-spacing:.22em;
-  text-transform:uppercase;
-  color:var(--muted);
+  margin:0 0 .7rem;font-size:.8rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);
 }
 h1{
   margin:0;
-  font-size:clamp(2rem,10.6vw,4.4rem);
-  line-height:.95;
-  font-weight:700;
-  letter-spacing:.005em;
-  text-transform:uppercase;
+  font-size:clamp(2rem,10.6vw,4.6rem);
+  line-height:.95;font-weight:700;text-transform:uppercase;
   color:var(--red);
 }
-.subtitle{
-  margin:1.1rem 0 .2rem;
-  font-size:1.02rem;
-  font-weight:700;
-  line-height:1.3;
-}
-.tagline{margin:0;font-size:.95rem;font-style:italic;color:var(--muted)}
+.subtitle{margin:1rem 0 .2rem;font-size:1rem;font-weight:700;line-height:1.3}
+.tagline{margin:0;font-size:.93rem;font-style:italic;color:var(--muted)}
 
-/* ------------------------------------------------------------ ESSENTIALS */
-main{max-width:34rem;margin:0 auto;padding:0 22px}
-
-.essentials{
-  text-align:center;
-  padding:2.2rem 0 2rem;
-  border-bottom:1px solid var(--rule);
-}
-.essentials p{margin:0 0 .35rem}
-.date{font-size:1.5rem;font-weight:700;color:var(--red);line-height:1.2}
-.time{font-size:1.06rem}
-.venue{margin-top:.9rem !important;font-weight:700}
-.address a{color:var(--ink);text-underline-offset:3px}
-.address a:hover,.address a:focus-visible{color:var(--red)}
+.essentials{margin-top:1.9rem}
+.essentials p{margin:0 0 .3rem}
+.date{font-size:1.32rem;font-weight:700;color:var(--red);line-height:1.2}
+.time{font-size:1.02rem}
+.venue{margin-top:.6rem !important;font-weight:700;font-size:.98rem}
 .admission{
-  margin-top:1rem !important;
-  font-variant:small-caps;
-  letter-spacing:.06em;
-  font-size:1.12rem;
-  color:var(--red);
+  margin-top:.55rem !important;font-variant:small-caps;
+  letter-spacing:.06em;font-size:1.04rem;color:var(--red);
 }
+.more-btn{
+  margin-top:1.15rem;
+  font-family:var(--serif);font-size:.93rem;
+  padding:.6rem 1.1rem;min-height:44px;
+  background:rgba(255,255,255,.5);
+  border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink);cursor:pointer;
+}
+.more-btn:hover{background:rgba(255,255,255,.78)}
 
-/* -------------------------------------------------------------- COUNTDOWN */
-.countdown{text-align:center;padding:2.4rem 0 2.6rem;border-bottom:1px solid var(--rule)}
+/* sticky note floats low, over the dark rocks where yellow reads loudest */
+.opening-note{text-align:center;padding-top:3rem}
 .countdown-label{
-  margin:0 0 1.1rem;
-  font-size:.82rem;
-  letter-spacing:.17em;
-  text-transform:uppercase;
-  color:var(--muted);
+  margin:0 0 .85rem;font-size:.76rem;letter-spacing:.17em;
+  text-transform:uppercase;color:var(--ink);
+  text-shadow:0 0 10px rgba(236,226,213,.95),0 0 4px rgba(236,226,213,1);
 }
 .note{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:9.4rem;height:9.4rem;
-  background:#F6E58C;
+  display:inline-flex;align-items:center;justify-content:center;
+  width:8.6rem;height:8.6rem;padding:.4rem;
   background-image:linear-gradient(160deg,#F9EE9F 0%,#F2DE78 100%);
-  box-shadow:0 8px 18px rgba(36,26,26,.17),0 1px 0 rgba(255,255,255,.5) inset;
+  box-shadow:0 10px 22px rgba(20,14,10,.34),0 1px 0 rgba(255,255,255,.5) inset;
   transform:rotate(-2.4deg);
-  padding:.4rem;
 }
-.note-number{
-  font-family:var(--hand);
-  font-size:4.6rem;
-  line-height:1;
-  color:#2B2415;
+.note-number{font-family:var(--hand);font-size:4.3rem;line-height:1;color:#2B2415}
+.note.is-text .note-number{font-size:2rem;line-height:1.15}
+.note-link{
+  display:inline-block;margin-top:1rem;color:var(--ink);font-weight:700;
+  text-shadow:0 0 10px rgba(236,226,213,.95),0 0 4px rgba(236,226,213,1);
 }
-.note.is-text .note-number{font-size:2.2rem;line-height:1.15}
-.note-link{display:inline-block;margin-top:1.1rem;color:var(--red);font-weight:700}
 
-/* ----------------------------------------------------------------- SIGNUP */
-.signup{padding:2.3rem 0 2.6rem;text-align:center}
-.signup h2{margin:0 0 .35rem;font-size:1.3rem;font-weight:700}
+/* ----------------------------------------------------------------- SHEET
+ * Rises out of the painting on a gradient of the painting's own colours. */
+.sheet{
+  position:relative;
+  padding:4.5rem 20px calc(env(safe-area-inset-bottom,0px) + 3.5rem);
+  background:
+    linear-gradient(to bottom, rgba(225,210,190,0) 0, var(--sand) 4.5rem),
+    linear-gradient(to bottom, var(--sand) 0%, var(--sand-light) 38%, var(--stone) 100%);
+}
+
+.player,.signup{max-width:34rem;margin:0 auto;text-align:center}
+.player{padding-bottom:2.6rem;margin-bottom:2.6rem;border-bottom:1px solid var(--rule)}
+h2{margin:0 0 .3rem;font-size:1.3rem;font-weight:700}
+.player-sub{margin:0 0 1.2rem;font-size:.95rem;color:var(--muted)}
+.play-btn{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--serif);font-size:1rem;font-weight:700;
+  padding:.8rem 1.5rem;min-height:48px;
+  border:1px solid var(--rule);border-radius:999px;
+  background:rgba(255,255,255,.62);color:var(--ink);cursor:pointer;
+}
+.play-btn:hover{background:rgba(255,255,255,.9)}
+.play-icon{
+  width:0;height:0;
+  border-left:13px solid var(--red);
+  border-top:8px solid transparent;border-bottom:8px solid transparent;
+}
+.play-btn[aria-pressed="true"] .play-icon{
+  width:12px;height:15px;border:0;
+  border-left:4px solid var(--red);border-right:4px solid var(--red);
+}
+.player-credit{margin:1.1rem 0 0;font-size:.88rem;line-height:1.6;color:var(--muted)}
+
 .signup-note{margin:0 0 1.2rem;font-size:.95rem;color:var(--muted)}
 #signup-form{display:flex;flex-direction:column;gap:.7rem;max-width:22rem;margin:0 auto}
 #email{
-  font-family:var(--serif);font-size:1rem;
-  padding:.85rem .9rem;
-  border:1px solid var(--rule);
-  border-radius:3px;
-  background:#fff;color:var(--ink);
-  min-height:48px;
+  font-family:var(--serif);font-size:1rem;padding:.85rem .9rem;min-height:48px;
+  border:1px solid var(--rule);border-radius:3px;background:#fff;color:var(--ink);
 }
-#email:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-button{
-  font-family:var(--serif);font-size:1rem;font-weight:700;
-  letter-spacing:.04em;
-  padding:.85rem 1rem;min-height:48px;
-  border:0;border-radius:3px;
-  background:var(--red);color:#fff;
-  cursor:pointer;
+button[type="submit"]{
+  font-family:var(--serif);font-size:1rem;font-weight:700;letter-spacing:.04em;
+  padding:.85rem 1rem;min-height:48px;border:0;border-radius:3px;
+  background:var(--red);color:#fff;cursor:pointer;
 }
 .form-msg{margin:.4rem 0 0;font-size:.95rem}
-.form-msg.ok{color:var(--ink)}
 .form-msg.err{color:var(--red)}
+.social{margin:1.8rem 0 0;font-size:.95rem}
+.social a{color:var(--ink);text-underline-offset:3px}
+.social a:hover{color:var(--red)}
 
-/* ----------------------------------------------------------------- FOOTER */
-footer{
-  max-width:34rem;
-  margin:0 auto;
-  padding:1.8rem 22px calc(env(safe-area-inset-bottom,0px) + 2.4rem);
-  font-size:.78rem;
-  line-height:1.5;
-  color:var(--muted);
-  text-align:center;
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+
+/* ---------------------------------------------------------------- DIALOG */
+.more-dialog{
+  width:min(32rem,calc(100vw - 2rem));
+  max-height:min(86dvh,calc(100dvh - 2rem));
+  padding:2rem 1.7rem 2.2rem;
+  border:0;border-radius:5px;
+  background:var(--sand-light);color:var(--ink);
+  box-shadow:0 18px 50px rgba(20,14,10,.45);
+  overflow-y:auto;
 }
-footer p{margin:0 0 .6rem}
-footer cite{font-style:italic}
+.more-dialog::backdrop{background:rgba(20,14,10,.58)}
+.more-dialog h2{margin:0 0 .9rem;font-size:1.35rem;color:var(--red);text-transform:uppercase;line-height:1.1}
+.more-dialog h3{
+  margin:1.5rem 0 .25rem;font-size:.78rem;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);font-weight:700;
+}
+.more-dialog p{margin:0;font-size:.97rem}
+.more-dialog .d-lead{font-size:1rem;line-height:1.55}
+.more-dialog a{color:var(--ink)}
+.more-dialog a:hover{color:var(--red)}
+.more-dialog cite{font-style:italic}
+.dialog-close{
+  position:absolute;top:.6rem;right:.7rem;
+  width:44px;height:44px;font-size:1.5rem;line-height:1;
+  background:none;border:0;color:var(--ink);cursor:pointer;
+}
 
 /* ---------------------------------------------------------------- DESKTOP */
 @media (min-width:768px){
   body{font-size:19px}
-  .hero{
-    background-image:url("/assets/sky-desktop.webp");
-    min-height:62dvh;
-    align-items:center;
-    padding:10vh 22px;
+  .backdrop{background-image:url("/assets/painting-desktop.webp")}
+  .opening{
+    padding:8vh 20px 7vh;
+    justify-content:center;
+    gap:3.5vh;
   }
-  .hero::after{
-    background:linear-gradient(to bottom,rgba(247,242,232,.42) 0%,rgba(247,242,232,.1) 60%,rgba(247,242,232,0) 100%);
+  .opening::before{
+    background:linear-gradient(to bottom,
+      rgba(236,226,213,.66) 0%,
+      rgba(236,226,213,.42) 40%,
+      rgba(236,226,213,.14) 70%,
+      rgba(236,226,213,0) 90%);
   }
-  .hero-inner{max-width:40rem}
-  h1{font-size:clamp(4rem,7.5vw,6rem)}
-  .subtitle{font-size:1.2rem}
+  .opening-top{max-width:40rem}
+  h1{font-size:clamp(3.6rem,7vw,5.8rem)}
+  .subtitle{font-size:1.18rem}
+  .date{font-size:1.5rem}
+  .opening-note{padding-top:0}
+  .note{width:9.6rem;height:9.6rem}
+  .note-number{font-size:4.8rem}
 }
 
 @media (prefers-reduced-motion: no-preference){
-  .address a,button,.note-link{transition:color 140ms ease,background-color 140ms ease}
-  button:hover{background:#A9141A}
+  .more-btn,.play-btn,button[type="submit"],.social a,.more-dialog a{
+    transition:background-color 150ms ease,color 150ms ease;
+  }
 }
