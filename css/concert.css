@@ -80,13 +80,11 @@ body{
   margin:0 0 .6rem;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
   color:var(--ink);text-shadow:var(--halo-light);
 }
-h1{
-  margin:0;
-  font-size:clamp(2.1rem,11vw,5rem);
-  line-height:.98;font-weight:700;text-transform:uppercase;
-  color:var(--red);
-  text-shadow:0 0 14px rgba(240,232,220,.85),0 0 4px rgba(240,232,220,.9);
-}
+/* The title and the Deseret line are poster artwork, not type. They bring
+   their own outlines, so they need no halo to sit on the painting. */
+.deseret{display:block;width:min(100%,30rem);margin:0 auto .55rem}
+h1{margin:0}
+h1 img{display:block;width:100%;margin:0 auto}
 .subtitle{
   margin:.9rem 0 .15rem;font-size:1.02rem;font-weight:600;line-height:1.3;
   color:var(--ink);text-shadow:var(--halo-light);
@@ -261,7 +259,6 @@ button[type="submit"]{
   .backdrop{background-image:url("/assets/painting-desktop.webp")}
   .opening{padding:7vh 20px 6vh;gap:2.6rem}
   .titleblock,.focus,.opening-actions{max-width:42rem}
-  h1{font-size:clamp(3.6rem,7vw,6rem)}
   .subtitle{font-size:1.2rem}
   .note{width:9.4rem;height:9.4rem}
   .note-number{font-size:4.7rem}
