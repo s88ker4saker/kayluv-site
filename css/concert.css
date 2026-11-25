@@ -140,12 +140,28 @@ h1 img{display:block;width:100%;margin:0 auto}
    the painting rather than on a card. The fire gradient lights it on hover
    and holds lit while the recording plays (ASSET_BRIEF §1). */
 .phono{
-  display:block;padding:0;border:0;background:none;line-height:0;cursor:pointer;
+  position:relative;display:block;padding:0;border:0;background:none;line-height:0;cursor:pointer;
   width:clamp(5rem,19vw,7.4rem);
   transform:rotate(1.6deg);transform-origin:bottom center;
   filter:drop-shadow(0 8px 14px rgba(16,12,9,.45));
 }
 .phono img{display:block;width:100%;height:auto}
+/* Under her feet: a triangle when stopped, two bars while playing, so
+   it is obvious both how to start it and how to stop it. Cream with a
+   dark halo, since it sits over whatever part of the painting is behind. */
+.phono-glyph{
+  position:absolute;left:50%;bottom:-.55rem;transform:translateX(-50%);
+  width:0;height:0;
+  border-left:13px solid var(--cream);
+  border-top:8px solid transparent;border-bottom:8px solid transparent;
+  filter:drop-shadow(0 1px 2px rgba(14,10,8,.95)) drop-shadow(0 0 5px rgba(14,10,8,.7));
+}
+.phono[aria-pressed="true"] .phono-glyph{
+  width:13px;height:15px;border:0;
+  border-left:4.5px solid var(--cream);border-right:4.5px solid var(--cream);
+}
+.phono:hover .phono-glyph,.phono:focus-visible .phono-glyph{border-left-color:#F0A800}
+.phono[aria-pressed="true"]:hover .phono-glyph{border-right-color:#F0A800}
 .phono:hover,.phono:focus-visible,.phono[aria-pressed="true"]{
   filter:drop-shadow(0 8px 14px rgba(16,12,9,.45))
          drop-shadow(0 0 6px rgba(240,168,0,.95))
@@ -264,19 +280,19 @@ button[type="submit"]{
   max-height:min(88dvh,calc(100dvh - 1.8rem));
   padding:2.1rem 1.7rem 2.2rem;
   border:1px solid rgba(240,232,220,.22);border-radius:5px;
-  background:linear-gradient(165deg,var(--cloud) 0%,var(--slate) 42%,var(--slate-deep) 100%);
-  color:var(--cream);
+  background:linear-gradient(165deg,#424241 0%,#323B3F 42%,#252C2F 100%);
+  color:#F3EBDF;            /* 8.5:1 on the gradient top */
   box-shadow:0 20px 56px rgba(12,9,7,.6);
   overflow-y:auto;
 }
-.sheet-dialog::backdrop{background:rgba(14,11,9,.62)}
+.sheet-dialog::backdrop{background:rgba(14,11,9,.7)}
 .sheet-dialog h2{
   margin:0 0 1rem;font-size:1.45rem;line-height:1.1;font-weight:700;
-  text-transform:uppercase;color:#F6B9B5;
+  text-transform:uppercase;color:#F7B2A4;
 }
 .sheet-dialog h3{
   margin:1.6rem 0 .3rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
-  color:rgba(236,226,213,.7);font-weight:600;
+  color:rgba(243,235,223,.82);font-weight:600;
 }
 .sheet-dialog p{margin:0 0 .7rem;font-size:1rem}
 .d-lead{line-height:1.55}
@@ -291,24 +307,24 @@ button[type="submit"]{
 .d-facts p{margin:0 0 .25rem}
 .f-date{font-size:1.18rem;font-weight:700}
 .f-venue{margin-top:.75rem !important}
-.f-free{margin-top:.75rem !important;font-variant:small-caps;letter-spacing:.06em;color:#F6B9B5}
+.f-free{margin-top:.75rem !important;font-variant:small-caps;letter-spacing:.06em;color:#F7B2A4}
 
 .d-url{font-size:1.02rem}
-.d-note{margin-top:1.5rem;font-size:.9rem;font-style:italic;color:rgba(236,226,213,.78)}
+.d-note{margin-top:1.5rem;font-size:.9rem;font-style:italic;color:rgba(243,235,223,.86)}
 .d-program{margin:.5rem 0 0;padding-left:1.4rem}
 .d-program li{margin:0 0 .4rem;font-size:1rem}
-.d-program span{display:block;font-size:.84rem;font-style:italic;color:rgba(236,226,213,.72)}
+.d-program span{display:block;font-size:.84rem;font-style:italic;color:rgba(243,235,223,.8)}
 .d-lyric{
   margin:0 0 1.3rem;font-size:1.06rem;line-height:1.65;font-style:italic;
 }
 .d-head{
   margin:1.5rem 0 .3rem;font-variant:small-caps;letter-spacing:.05em;
-  font-size:1.02rem;color:#F6B9B5;
+  font-size:1.02rem;color:#F7B2A4;
 }
 .d-roster{line-height:1.6}
 .d-cast{line-height:1.7;margin-top:.3rem}
-.d-come{margin:1.3rem 0 .9rem;font-style:italic;color:#F6B9B5}
-.d-signoff{margin:0;line-height:1.5;font-style:italic;color:#F6B9B5}
+.d-come{margin:1.3rem 0 .9rem;font-style:italic;color:#F7B2A4}
+.d-signoff{margin:0;line-height:1.5;font-style:italic;color:#F7B2A4}
 .d-sign{
   display:inline-block;margin-top:.15rem;
   font-family:var(--hand);font-style:normal;font-size:1.5rem;
@@ -316,7 +332,7 @@ button[type="submit"]{
 }
 .d-fine{
   margin-top:1.8rem;padding-top:1rem;font-size:.78rem;line-height:1.5;
-  color:rgba(236,226,213,.68);border-top:1px solid rgba(240,232,220,.18);
+  color:rgba(243,235,223,.78);border-top:1px solid rgba(240,232,220,.18);
 }
 .dialog-close{
   position:absolute;top:.5rem;right:.6rem;
