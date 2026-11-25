@@ -78,20 +78,27 @@
     </div>
 
     <div class="opening-actions">
-      <button type="button" class="pill" id="more-btn" aria-haspopup="dialog">More about the concert</button>
+      <!-- A printer's manicule, the 19th-century device for "look here",
+           instead of a capsule button. Same interaction language as the
+           lyric: warm type means you can touch it. VS15 keeps the glyph
+           in text presentation rather than letting it become an emoji. -->
+      <button type="button" class="more-link" id="more-btn" aria-haspopup="dialog">
+        <span class="manicule" aria-hidden="true">&#x261E;&#xFE0E;</span>More about the concert
+      </button>
     </div>
 
   </section>
 
   <section class="tail">
     <h2 class="tail-head">Hear ye, hear ye!</h2>
-    <p class="tail-note">Input your email below to stay in the know for future projects and releases.</p>
+    <p class="tail-note">Leave me your address, and I&rsquo;ll write once in a blue
+        moon, when I have something new&hellip; a concert, a song, or a prophecy to share.</p>
     <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
       <input type="hidden" name="form-name" value="signup">
       <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
       <label class="sr-only" for="email">Email address</label>
       <input id="email" type="email" name="email" placeholder="yourcoolemail@something.com" required autocomplete="email" inputmode="email">
-      <button type="submit">Sign up</button>
+      <button type="submit">Put me on the list</button>
       <p class="form-msg" id="form-msg" role="status" hidden></p>
     </form>
     <p class="tail-social"><a href="https://instagram.com/kayluv2u" rel="me noopener">Instagram — @kayluv2u</a></p>
