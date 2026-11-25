@@ -1,239 +1,275 @@
 /*
  * kayluvpresents.com — concert page (Mythmaking of Deseret, Dec 11 2026)
  *
- * The Moran painting is the ground the page stands on: a fixed backdrop
- * behind everything, with the opening screen floating over it and the
- * lower "sheet" rising out of it on a gradient sampled from the painting.
+ * The painting is the page. Almost nothing sits on a box: type floats
+ * over the Moran with a halo for legibility, and only the things that
+ * genuinely cannot float — form fields and the two dialogs — get a
+ * surface. Those surfaces use cloud blues and greys sampled from the
+ * painting itself.
  *
- * Colours are measured, not invented:
- *   --red    #C6181E  sampled from the printed poster's title
- *   --ink    #241A1A  sampled from the poster's text block
- *   sand/stone stops below are painting samples lifted toward white for
- *   legibility; the source sample and the lift are noted on each line.
+ * Every colour below is measured, with its source noted:
+ *   --red        #C6181E  poster title
+ *   --ink        #241A1A  poster text block
+ *   --cream      #ECE2D5  sky cream #D4BFA3 lifted 55% toward white
+ *   --slate      #516067  deep lake blue
+ *   --slate-deep #3D484D  the same, darkened 25% for text contrast (7:1)
+ *   --cloud      #6B6C69  lake/cloud mid grey
  *
- * MOTION: every transition/animation lives inside a
- * prefers-reduced-motion: no-preference block. Keep it that way.
+ * Type is EB Garamond — the poster's own body face. The title is Windsor
+ * on the poster; swap in an SVG export for an exact match.
+ *
+ * MOTION: all transitions live inside prefers-reduced-motion:
+ * no-preference. Keep it that way.
  */
 
 :root{
   --red:#C6181E;
   --ink:#241A1A;
-  --sand-light:#ECE2D5;  /* sky cream #D4BFA3, lifted 55% toward white */
-  --sand:#E1D2BE;        /* sky cream #D4BFA3, lifted 30% */
-  --stone:#C8C2B8;       /* lake pale  #A49A89, lifted 40% */
-  --muted:rgba(36,26,26,.66);
-  --rule:rgba(36,26,26,.2);
-  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
-  --hand:"Caveat","Bradley Hand","Segoe Script",cursive;
+  --cream:#ECE2D5;
+  --slate:#516067;
+  --slate-deep:#3D484D;
+  --cloud:#6B6C69;
+  --serif:"EB Garamond",Georgia,"Times New Roman",serif;
+  --hand:"Caveat","Bradley Hand",cursive;
+  /* halos: light behind dark type up top, dark behind light type lower down */
+  --halo-light:0 0 10px rgba(240,232,220,.92),0 0 3px rgba(240,232,220,1);
+  --halo-dark:0 1px 3px rgba(18,14,12,.85),0 0 14px rgba(18,14,12,.6);
 }
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{
   margin:0;
-  background:var(--sand);
+  background:var(--slate-deep);
   color:var(--ink);
   font-family:var(--serif);
-  font-size:18px;
+  font-size:19px;
   line-height:1.5;
 }
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 .hp{position:absolute;left:-9999px}
 
-/* -------------------------------------------------------------- BACKDROP
- * A fixed element rather than background-attachment:fixed, which iOS
- * Safari renders badly. */
+/* ------------------------------------------------------------- BACKDROP */
 .backdrop{
-  position:fixed;
-  inset:0;
-  z-index:0;
+  position:fixed;inset:0;z-index:0;
   background-image:url("/assets/painting-mobile.webp");
-  background-size:cover;
-  background-position:center center;
+  background-size:cover;background-position:center center;
 }
 .page{position:relative;z-index:1}
 
-/* --------------------------------------------------------------- OPENING */
+/* -------------------------------------------------------------- OPENING */
 .opening{
   min-height:100dvh;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-  padding:calc(env(safe-area-inset-top,0px) + 5vh) 20px 6vh;
+  display:flex;flex-direction:column;align-items:center;
+  gap:2.2rem;
+  padding:calc(env(safe-area-inset-top,0px) + 4.5vh) 20px 5vh;
+  text-align:center;
 }
-/* soft warm veil, strongest behind the type at the top, gone by mid-screen */
+/* barely-there lift so the red title holds on the palest skies — this is
+   deliberately far lighter than a scrim; the painting should show through */
 .opening::before{
-  content:"";
-  position:absolute;inset:0;
-  pointer-events:none;
+  content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(to bottom,
-    rgba(236,226,213,.70) 0%,
-    rgba(236,226,213,.48) 30%,
-    rgba(236,226,213,.20) 56%,
-    rgba(236,226,213,0) 78%);
+    rgba(240,232,220,.30) 0%,
+    rgba(240,232,220,.14) 26%,
+    rgba(240,232,220,0) 48%);
 }
-.opening-top,.opening-note{position:relative;z-index:1}
-.opening-top{max-width:34rem;margin:0 auto;text-align:center;width:100%}
+.titleblock,.focus,.opening-actions{position:relative;z-index:1;width:100%;max-width:34rem}
 
 .presents{
-  margin:0 0 .7rem;font-size:.8rem;letter-spacing:.22em;
-  text-transform:uppercase;color:var(--muted);
+  margin:0 0 .6rem;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);text-shadow:var(--halo-light);
 }
 h1{
   margin:0;
-  font-size:clamp(2rem,10.6vw,4.6rem);
-  line-height:.95;font-weight:700;text-transform:uppercase;
+  font-size:clamp(2.1rem,11vw,5rem);
+  line-height:.98;font-weight:700;text-transform:uppercase;
   color:var(--red);
+  text-shadow:0 0 14px rgba(240,232,220,.85),0 0 4px rgba(240,232,220,.9);
 }
-.subtitle{margin:1rem 0 .2rem;font-size:1rem;font-weight:700;line-height:1.3}
-.tagline{margin:0;font-size:.93rem;font-style:italic;color:var(--muted)}
+.subtitle{
+  margin:.9rem 0 .15rem;font-size:1.02rem;font-weight:600;line-height:1.3;
+  color:var(--ink);text-shadow:var(--halo-light);
+}
+.tagline{
+  margin:0;font-size:.95rem;font-style:italic;
+  color:var(--ink);text-shadow:var(--halo-light);
+}
 
-.essentials{margin-top:1.9rem}
-.essentials p{margin:0 0 .3rem}
-.date{font-size:1.32rem;font-weight:700;color:var(--red);line-height:1.2}
-.time{font-size:1.02rem}
-.venue{margin-top:.6rem !important;font-weight:700;font-size:.98rem}
-.admission{
-  margin-top:.55rem !important;font-variant:small-caps;
-  letter-spacing:.06em;font-size:1.04rem;color:var(--red);
-}
-.more-btn{
-  margin-top:1.15rem;
-  font-family:var(--serif);font-size:.93rem;
-  padding:.6rem 1.1rem;min-height:44px;
-  background:rgba(255,255,255,.5);
-  border:1px solid var(--rule);border-radius:999px;
-  color:var(--ink);cursor:pointer;
-}
-.more-btn:hover{background:rgba(255,255,255,.78)}
+/* ----------------------------------------------- THE TWO HIGHLIGHTS ---- */
+.focus{margin-top:auto}
 
-/* sticky note floats low, over the dark rocks where yellow reads loudest */
-.opening-note{text-align:center;padding-top:3rem}
 .countdown-label{
-  margin:0 0 .85rem;font-size:.76rem;letter-spacing:.17em;
-  text-transform:uppercase;color:var(--ink);
-  text-shadow:0 0 10px rgba(236,226,213,.95),0 0 4px rgba(236,226,213,1);
+  margin:0 0 .8rem;font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--cream);text-shadow:var(--halo-dark);
 }
 .note{
   display:inline-flex;align-items:center;justify-content:center;
-  width:8.6rem;height:8.6rem;padding:.4rem;
+  width:8.4rem;height:8.4rem;padding:.4rem;
   background-image:linear-gradient(160deg,#F9EE9F 0%,#F2DE78 100%);
-  box-shadow:0 10px 22px rgba(20,14,10,.34),0 1px 0 rgba(255,255,255,.5) inset;
+  box-shadow:0 12px 26px rgba(16,12,9,.45),0 1px 0 rgba(255,255,255,.5) inset;
   transform:rotate(-2.4deg);
 }
-.note-number{font-family:var(--hand);font-size:4.3rem;line-height:1;color:#2B2415}
-.note.is-text .note-number{font-size:2rem;line-height:1.15}
+.note-number{font-family:var(--hand);font-size:4.2rem;line-height:1;color:#2B2415}
+.note.is-text .note-number{font-size:1.9rem;line-height:1.15}
 .note-link{
-  display:inline-block;margin-top:1rem;color:var(--ink);font-weight:700;
-  text-shadow:0 0 10px rgba(236,226,213,.95),0 0 4px rgba(236,226,213,1);
+  display:inline-block;margin-top:.9rem;font-weight:700;
+  color:var(--cream);text-shadow:var(--halo-dark);
 }
 
-/* ----------------------------------------------------------------- SHEET
- * Rises out of the painting on a gradient of the painting's own colours. */
-.sheet{
-  position:relative;
-  padding:4.5rem 20px calc(env(safe-area-inset-bottom,0px) + 3.5rem);
-  background:
-    linear-gradient(to bottom, rgba(225,210,190,0) 0, var(--sand) 4.5rem),
-    linear-gradient(to bottom, var(--sand) 0%, var(--sand-light) 38%, var(--stone) 100%);
+/* the record: a little pressed disc, tilted like the note */
+.song{margin-top:1.9rem}
+.song-controls{display:flex;align-items:center;justify-content:center;gap:.85rem}
+.disc{
+  width:5.1rem;height:5.1rem;padding:0;cursor:pointer;
+  border:0;border-radius:50%;
+  background:radial-gradient(circle at 50% 50%,
+      #2A2724 0 46%, #221F1D 46% 100%);
+  box-shadow:0 10px 22px rgba(16,12,9,.5),
+             0 0 0 1px rgba(240,232,220,.22) inset;
+  transform:rotate(-2.4deg);
+  display:grid;place-items:center;
 }
-
-.player,.signup{max-width:34rem;margin:0 auto;text-align:center}
-.player{padding-bottom:2.6rem;margin-bottom:2.6rem;border-bottom:1px solid var(--rule)}
-h2{margin:0 0 .3rem;font-size:1.3rem;font-weight:700}
-.player-sub{margin:0 0 1.2rem;font-size:.95rem;color:var(--muted)}
-.play-btn{
-  display:inline-flex;align-items:center;gap:.6rem;
-  font-family:var(--serif);font-size:1rem;font-weight:700;
-  padding:.8rem 1.5rem;min-height:48px;
-  border:1px solid var(--rule);border-radius:999px;
-  background:rgba(255,255,255,.62);color:var(--ink);cursor:pointer;
+.disc-label{
+  width:2.3rem;height:2.3rem;border-radius:50%;
+  background:var(--red);
+  display:grid;place-items:center;
+  box-shadow:0 0 0 1px rgba(16,12,9,.35);
 }
-.play-btn:hover{background:rgba(255,255,255,.9)}
-.play-icon{
-  width:0;height:0;
-  border-left:13px solid var(--red);
+.disc-glyph{
+  width:0;height:0;margin-left:3px;
+  border-left:12px solid var(--cream);
   border-top:8px solid transparent;border-bottom:8px solid transparent;
 }
-.play-btn[aria-pressed="true"] .play-icon{
-  width:12px;height:15px;border:0;
-  border-left:4px solid var(--red);border-right:4px solid var(--red);
+.disc[aria-pressed="true"] .disc-glyph{
+  width:11px;height:14px;margin-left:0;border:0;
+  border-left:4px solid var(--cream);border-right:4px solid var(--cream);
 }
-.player-credit{margin:1.1rem 0 0;font-size:.88rem;line-height:1.6;color:var(--muted)}
+.info-dot{
+  width:2.1rem;height:2.1rem;border-radius:50%;cursor:pointer;
+  font-family:var(--serif);font-style:italic;font-size:1.05rem;line-height:1;
+  color:var(--cream);background:rgba(61,72,77,.72);
+  border:1px solid rgba(240,232,220,.4);
+}
+.song-caption{
+  margin:.85rem 0 0;font-size:1rem;
+  color:var(--cream);text-shadow:var(--halo-dark);
+}
 
-.signup-note{margin:0 0 1.2rem;font-size:.95rem;color:var(--muted)}
-#signup-form{display:flex;flex-direction:column;gap:.7rem;max-width:22rem;margin:0 auto}
+.opening-actions{margin-top:1.6rem}
+.pill{
+  font-family:var(--serif);font-size:.96rem;
+  padding:.62rem 1.25rem;min-height:44px;cursor:pointer;
+  color:var(--cream);background:rgba(61,72,77,.72);
+  border:1px solid rgba(240,232,220,.4);border-radius:999px;
+}
+.pill:hover,.info-dot:hover{background:rgba(61,72,77,.92)}
+
+/* ------------------------------------------------------------------ TAIL
+ * Still over the painting — only the form controls carry a surface. */
+.tail{
+  position:relative;z-index:1;
+  max-width:34rem;margin:0 auto;text-align:center;
+  padding:4rem 20px calc(env(safe-area-inset-bottom,0px) + 3rem);
+}
+.tail-head{
+  margin:0 0 .25rem;font-size:1.25rem;font-weight:700;
+  color:var(--cream);text-shadow:var(--halo-dark);
+}
+.tail-note{
+  margin:0 0 1.2rem;font-size:.95rem;
+  color:var(--cream);text-shadow:var(--halo-dark);
+}
+#signup-form{display:flex;flex-direction:column;gap:.7rem;max-width:21rem;margin:0 auto}
 #email{
-  font-family:var(--serif);font-size:1rem;padding:.85rem .9rem;min-height:48px;
-  border:1px solid var(--rule);border-radius:3px;background:#fff;color:var(--ink);
+  font-family:var(--serif);font-size:1rem;padding:.8rem .9rem;min-height:48px;
+  border:1px solid rgba(16,12,9,.3);border-radius:3px;
+  background:rgba(252,250,246,.94);color:var(--ink);
 }
 button[type="submit"]{
-  font-family:var(--serif);font-size:1rem;font-weight:700;letter-spacing:.04em;
-  padding:.85rem 1rem;min-height:48px;border:0;border-radius:3px;
+  font-family:var(--serif);font-size:1rem;font-weight:700;letter-spacing:.03em;
+  padding:.8rem 1rem;min-height:48px;border:0;border-radius:3px;
   background:var(--red);color:#fff;cursor:pointer;
 }
-.form-msg{margin:.4rem 0 0;font-size:.95rem}
-.form-msg.err{color:var(--red)}
-.social{margin:1.8rem 0 0;font-size:.95rem}
-.social a{color:var(--ink);text-underline-offset:3px}
-.social a:hover{color:var(--red)}
+.form-msg{margin:.3rem 0 0;font-size:.95rem;color:var(--cream);text-shadow:var(--halo-dark)}
+.form-msg.err{color:#FFC9C6}
+.tail-social{margin:1.5rem 0 0;font-size:.95rem}
+.tail-social a{color:var(--cream);text-shadow:var(--halo-dark);text-underline-offset:3px}
+.plate-credit{
+  margin:2.4rem 0 0;font-size:.74rem;line-height:1.5;
+  color:rgba(236,226,213,.78);text-shadow:var(--halo-dark);
+}
+.plate-credit cite{font-style:italic}
 
-:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+:focus-visible{outline:2px solid var(--cream);outline-offset:3px}
 
-/* ---------------------------------------------------------------- DIALOG */
-.more-dialog{
-  width:min(32rem,calc(100vw - 2rem));
-  max-height:min(86dvh,calc(100dvh - 2rem));
-  padding:2rem 1.7rem 2.2rem;
-  border:0;border-radius:5px;
-  background:var(--sand-light);color:var(--ink);
-  box-shadow:0 18px 50px rgba(20,14,10,.45);
+/* --------------------------------------------------------------- DIALOGS
+ * The one place the cloud gradient lives. */
+.sheet-dialog{
+  width:min(33rem,calc(100vw - 1.8rem));
+  max-height:min(88dvh,calc(100dvh - 1.8rem));
+  padding:2.1rem 1.7rem 2.2rem;
+  border:1px solid rgba(240,232,220,.22);border-radius:5px;
+  background:linear-gradient(165deg,var(--cloud) 0%,var(--slate) 42%,var(--slate-deep) 100%);
+  color:var(--cream);
+  box-shadow:0 20px 56px rgba(12,9,7,.6);
   overflow-y:auto;
 }
-.more-dialog::backdrop{background:rgba(20,14,10,.58)}
-.more-dialog h2{margin:0 0 .9rem;font-size:1.35rem;color:var(--red);text-transform:uppercase;line-height:1.1}
-.more-dialog h3{
-  margin:1.5rem 0 .25rem;font-size:.78rem;letter-spacing:.15em;
-  text-transform:uppercase;color:var(--muted);font-weight:700;
+.sheet-dialog::backdrop{background:rgba(14,11,9,.62)}
+.sheet-dialog h2{
+  margin:0 0 1rem;font-size:1.45rem;line-height:1.1;font-weight:700;
+  text-transform:uppercase;color:#F6B9B5;
 }
-.more-dialog p{margin:0;font-size:.97rem}
-.more-dialog .d-lead{font-size:1rem;line-height:1.55}
-.more-dialog a{color:var(--ink)}
-.more-dialog a:hover{color:var(--red)}
-.more-dialog cite{font-style:italic}
+.sheet-dialog h3{
+  margin:1.6rem 0 .3rem;font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(236,226,213,.7);font-weight:600;
+}
+.sheet-dialog p{margin:0 0 .7rem;font-size:1rem}
+.d-lead{line-height:1.55}
+.sheet-dialog a{color:#fff;text-underline-offset:3px}
+.sheet-dialog cite{font-style:italic}
+
+.d-facts{
+  margin:1.5rem 0 .4rem;padding:1rem 0;
+  border-top:1px solid rgba(240,232,220,.22);
+  border-bottom:1px solid rgba(240,232,220,.22);
+}
+.d-facts p{margin:0 0 .25rem}
+.f-date{font-size:1.18rem;font-weight:700}
+.f-venue{margin-top:.75rem !important}
+.f-free{margin-top:.75rem !important;font-variant:small-caps;letter-spacing:.06em;color:#F6B9B5}
+
+.d-url{font-size:1.02rem}
+.d-note{margin-top:1.5rem;font-size:.9rem;font-style:italic;color:rgba(236,226,213,.78)}
+.d-program{margin:.5rem 0 0;padding-left:1.4rem}
+.d-program li{margin:0 0 .4rem;font-size:1rem}
+.d-program span{display:block;font-size:.84rem;font-style:italic;color:rgba(236,226,213,.72)}
+.d-cast{line-height:1.7}
+.d-come{margin-top:1.4rem;font-style:italic;color:#F6B9B5}
+.d-fine{
+  margin-top:1.8rem;padding-top:1rem;font-size:.78rem;line-height:1.5;
+  color:rgba(236,226,213,.68);border-top:1px solid rgba(240,232,220,.18);
+}
 .dialog-close{
-  position:absolute;top:.6rem;right:.7rem;
-  width:44px;height:44px;font-size:1.5rem;line-height:1;
-  background:none;border:0;color:var(--ink);cursor:pointer;
+  position:absolute;top:.5rem;right:.6rem;
+  width:44px;height:44px;font-size:1.6rem;line-height:1;
+  background:none;border:0;color:var(--cream);cursor:pointer;
 }
 
-/* ---------------------------------------------------------------- DESKTOP */
+/* -------------------------------------------------------------- DESKTOP */
 @media (min-width:768px){
-  body{font-size:19px}
   .backdrop{background-image:url("/assets/painting-desktop.webp")}
-  .opening{
-    padding:8vh 20px 7vh;
-    justify-content:center;
-    gap:3.5vh;
-  }
-  .opening::before{
-    background:linear-gradient(to bottom,
-      rgba(236,226,213,.66) 0%,
-      rgba(236,226,213,.42) 40%,
-      rgba(236,226,213,.14) 70%,
-      rgba(236,226,213,0) 90%);
-  }
-  .opening-top{max-width:40rem}
-  h1{font-size:clamp(3.6rem,7vw,5.8rem)}
-  .subtitle{font-size:1.18rem}
-  .date{font-size:1.5rem}
-  .opening-note{padding-top:0}
-  .note{width:9.6rem;height:9.6rem}
-  .note-number{font-size:4.8rem}
+  .opening{padding:7vh 20px 6vh;gap:2.6rem}
+  .titleblock,.focus,.opening-actions{max-width:42rem}
+  h1{font-size:clamp(3.6rem,7vw,6rem)}
+  .subtitle{font-size:1.2rem}
+  .note{width:9.4rem;height:9.4rem}
+  .note-number{font-size:4.7rem}
+  .disc{width:5.6rem;height:5.6rem}
 }
 
 @media (prefers-reduced-motion: no-preference){
-  .more-btn,.play-btn,button[type="submit"],.social a,.more-dialog a{
+  .pill,.info-dot,button[type="submit"],.tail-social a,.sheet-dialog a{
     transition:background-color 150ms ease,color 150ms ease;
   }
 }

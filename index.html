@@ -15,107 +15,119 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=EB+Garamond:ital,wght@0,400;0,600;0,700;1,400&display=swap">
 <link rel="stylesheet" href="/css/concert.css">
 </head>
 <body>
 
-<!-- The painting sits behind everything and stays put while the page moves. -->
-<div class="backdrop" role="img" aria-label="Thomas Moran's 1875 chromolithograph of the Great Salt Lake: a red sun low over the water, mountains beyond, rocky foreground."></div>
+<div class="backdrop" role="img" aria-label="Thomas Moran's 1875 chromolithograph of the Great Salt Lake: a red sun low over the water, mountains beyond, a rocky foreground."></div>
 
 <div class="page">
 
   <section class="opening">
-    <div class="opening-top">
+
+    <div class="titleblock">
       <p class="presents">Kayluv presents</p>
+      <!-- SWAP POINT: replace this <h1> with the Windsor title exported
+           from Illustrator as SVG for an exact match to the poster. -->
       <h1>Mythmaking<br>of Deseret</h1>
       <p class="subtitle">The Senior Composition Concert of Caleb Martin</p>
       <p class="tagline"><em>or,</em> How I Learned to Love Utah</p>
-
-      <div class="essentials">
-        <p class="date">Friday, December&nbsp;11, 2026</p>
-        <p class="time">7:30 PM &middot; Doors at 7:00</p>
-        <p class="venue">First United Methodist Church<br>Salt Lake City</p>
-        <p class="admission">Free Admission</p>
-        <button type="button" class="more-btn" id="more-btn" aria-haspopup="dialog">
-          More about the concert
-        </button>
-      </div>
     </div>
 
-    <div class="opening-note">
+    <div class="focus">
       <p class="countdown-label" id="countdown-label">days until the concert</p>
       <div class="note" id="note" role="status">
         <span class="note-number" id="note-number">&nbsp;</span>
       </div>
-    </div>
-  </section>
 
-  <section class="sheet">
-
-    <div class="player" aria-labelledby="player-heading">
-      <h2 id="player-heading">&ldquo;Day by Day&rdquo;</h2>
-      <p class="player-sub">A barbershop song from the program &mdash; <em>day by day, I know I&rsquo;ll be with you.</em></p>
-      <button type="button" class="play-btn" id="play-btn" aria-pressed="false">
-        <span class="play-icon" aria-hidden="true"></span>
-        <span class="play-text" id="play-text">Play</span>
-      </button>
-      <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
-      <p class="player-credit">
-        Ricky Cornejo, <i>tenor</i> &middot; Jonah Grey, <i>lead</i><br>
-        Caleb Booth, <i>baritone</i> &middot; Logan Luker, <i>bass</i>
-      </p>
+      <div class="song">
+        <div class="song-controls">
+          <button type="button" class="disc" id="play-btn" aria-pressed="false" aria-label="Play &ldquo;Day by Day&rdquo;">
+            <span class="disc-label"><span class="disc-glyph" aria-hidden="true"></span></span>
+          </button>
+          <button type="button" class="info-dot" id="song-info-btn" aria-haspopup="dialog" aria-label="About this recording">i</button>
+        </div>
+        <p class="song-caption"><em>Day by day, I know I&rsquo;ll be with you.</em></p>
+        <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
+      </div>
     </div>
 
-    <div class="signup">
-      <h2 id="signup-heading">Stay in touch</h2>
-      <p class="signup-note">News about the concert, recordings, and future releases.</p>
-      <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
-        <input type="hidden" name="form-name" value="signup">
-        <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
-        <label class="sr-only" for="email">Email address</label>
-        <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
-        <button type="submit">Sign up</button>
-        <p class="form-msg" id="form-msg" role="status" hidden></p>
-      </form>
-      <p class="social">
-        <a href="https://instagram.com/kayluv2u" rel="me noopener">Instagram &mdash; @kayluv2u</a>
-      </p>
+    <div class="opening-actions">
+      <button type="button" class="pill" id="more-btn" aria-haspopup="dialog">More about the concert</button>
     </div>
 
   </section>
+
+  <section class="tail">
+    <h2 class="tail-head">Stay in touch</h2>
+    <p class="tail-note">News about the concert, recordings, and future releases.</p>
+    <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
+      <input type="hidden" name="form-name" value="signup">
+      <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <label class="sr-only" for="email">Email address</label>
+      <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
+      <button type="submit">Sign up</button>
+      <p class="form-msg" id="form-msg" role="status" hidden></p>
+    </form>
+    <p class="tail-social"><a href="https://instagram.com/kayluv2u" rel="me noopener">Instagram — @kayluv2u</a></p>
+    <p class="plate-credit">Thomas Moran, <cite>The Great Salt Lake of Utah</cite>, chromolithograph by L.&nbsp;Prang &amp; Co., 1875. The New York Public Library.</p>
+  </section>
+
 </div>
 
-<dialog id="more" class="more-dialog" aria-labelledby="more-title">
-  <button type="button" class="dialog-close" id="dialog-close" aria-label="Close">&times;</button>
-  <h2 id="more-title">Mythmaking of Deseret</h2>
+<dialog id="more" class="sheet-dialog" aria-labelledby="more-title">
+  <button type="button" class="dialog-close" data-close aria-label="Close">&times;</button>
+  <h2 id="more-title">Mythmaking of Deseret.</h2>
 
-  <p class="d-lead">Eleven new works exploring life, legend, and myth in Deseret &mdash;
-     for organ, saxophone quartet, barbershop quartet, voice &amp; piano,
-     cellos &amp; electronics, and more.</p>
+  <p class="d-lead">Eleven new works exploring life, legend, and myth in Deseret.</p>
+  <p class="d-lead">Featuring performances from organ, saxophone quartet, barbershop
+     quartet, voice and piano, cellos and electronics, and voice and guitar.</p>
 
-  <h3>When</h3>
-  <p>Friday, December 11, 2026<br>Doors at 7:00 PM &middot; Concert at 7:30 PM</p>
+  <div class="d-facts">
+    <p class="f-date">Friday, December 11, 2026</p>
+    <p>7:30 PM &middot; Doors at 7:00</p>
+    <p class="f-venue">First United Methodist Church<br>Salt Lake City</p>
+    <p class="f-free">Free Admission</p>
+  </div>
 
-  <h3>Where</h3>
-  <p>First United Methodist Church<br>
-     <a href="https://maps.google.com/?q=First+United+Methodist+Church,+203+S+200+E,+Salt+Lake+City,+UT">203 S 200 E, Salt Lake City</a></p>
+  <h3>Link to program</h3>
+  <p class="d-url"><a href="/program">kayluvpresents.com/program</a></p>
 
-  <h3>Admission</h3>
-  <p>Free and open to the public.</p>
+  <p class="d-note">All pieces composed by Caleb Martin except where otherwise noted.</p>
+  <ol class="d-program">
+    <li>Organ Overture</li>
+    <li>Let There Be Light</li>
+    <li>Lost in the Stars <span>composed by Kurt Weill</span></li>
+    <li>If You Could Hie to Kolob <span>text by W. W. Phelps</span></li>
+    <li>Angel or Alien</li>
+    <li>At Last!</li>
+    <li>Crickets and the Gulls</li>
+    <li>SLC Refugee Benefit Concert</li>
+    <li>The Walker Weather Sign</li>
+    <li>At the River <span>composed by Charles Ives</span></li>
+    <li>Day by Day</li>
+    <li>At Rest</li>
+  </ol>
 
-  <h3>The program</h3>
-  <p>Running order, performers, and notes on each piece will be published at
-     <a href="/program">kayluvpresents.com/program</a> before the concert.</p>
+  <p class="d-fine">Supported by the Undergraduate Research Opportunities Program (UROP),
+     Office of Undergraduate Research, University of Utah, awarded to Caleb Martin.</p>
+</dialog>
 
-  <h3>Support</h3>
-  <p>This work was supported by the Undergraduate Research Opportunities Program
-     (UROP) from the Office of Undergraduate Research at the University of Utah,
-     awarded to Caleb Martin.</p>
+<dialog id="song-info" class="sheet-dialog" aria-labelledby="song-title">
+  <button type="button" class="dialog-close" data-close aria-label="Close">&times;</button>
+  <h2 id="song-title">Day by Day</h2>
+  <p class="d-lead"><em>Day by day, I know I&rsquo;ll be with you.</em></p>
 
-  <h3>Image</h3>
-  <p>Thomas Moran, <cite>The Great Salt Lake of Utah</cite>, chromolithograph by
-     L.&nbsp;Prang &amp; Co., 1875. The New York Public Library.</p>
+  <h3>Sung by</h3>
+  <p class="d-cast">
+    Ricky Cornejo, <i>tenor</i><br>
+    Jonah Grey, <i>lead</i><br>
+    Caleb Booth, <i>baritone</i><br>
+    Logan Luker, <i>bass</i>
+  </p>
+
+  <p class="d-come">Come hear this piece live at the concert.</p>
 </dialog>
 
 <script src="/js/countdown.js" defer></script>
