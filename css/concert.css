@@ -1,0 +1,188 @@
+/*
+ * kayluvpresents.com — concert page (Mythmaking of Deseret, Dec 11 2026)
+ * Mobile-portrait first; desktop centres the same column.
+ * Colours sampled from the printed poster, not invented:
+ *   title red #C6181E  (matches ASSET_BRIEF fire-red #C81E1E)
+ *   ink      #241A1A  (warm near-black measured in the poster text block)
+ *   paper    #F7F2E8  (existing project token, ASSET_BRIEF "warm off-white")
+ * MOTION: every transition/animation lives inside a
+ * prefers-reduced-motion: no-preference block. Keep it that way.
+ */
+
+:root{
+  --red:#C6181E;
+  --ink:#241A1A;
+  --paper:#F7F2E8;
+  --muted:rgba(36,26,26,.62);
+  --rule:rgba(36,26,26,.18);
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --hand:"Caveat","Bradley Hand","Segoe Script",cursive;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.5;
+}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.hp{position:absolute;left:-9999px}
+
+/* ------------------------------------------------------------------ HERO */
+.hero{
+  position:relative;
+  min-height:52dvh;
+  display:flex;
+  align-items:flex-start;
+  background-image:url("/assets/sky-mobile.webp");
+  background-size:cover;
+  background-position:center center;
+  padding:calc(env(safe-area-inset-top,0px) + 7vh) 22px 9vh;
+}
+/* light scrim so the title holds up on any crop and in daylight */
+.hero::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(247,242,232,.55) 0%,rgba(247,242,232,.18) 48%,rgba(247,242,232,0) 100%);
+}
+.hero-inner{position:relative;z-index:1;width:100%;max-width:34rem;margin:0 auto;text-align:center}
+
+.presents{
+  margin:0 0 .7rem;
+  font-size:.82rem;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+h1{
+  margin:0;
+  font-size:clamp(2rem,10.6vw,4.4rem);
+  line-height:.95;
+  font-weight:700;
+  letter-spacing:.005em;
+  text-transform:uppercase;
+  color:var(--red);
+}
+.subtitle{
+  margin:1.1rem 0 .2rem;
+  font-size:1.02rem;
+  font-weight:700;
+  line-height:1.3;
+}
+.tagline{margin:0;font-size:.95rem;font-style:italic;color:var(--muted)}
+
+/* ------------------------------------------------------------ ESSENTIALS */
+main{max-width:34rem;margin:0 auto;padding:0 22px}
+
+.essentials{
+  text-align:center;
+  padding:2.2rem 0 2rem;
+  border-bottom:1px solid var(--rule);
+}
+.essentials p{margin:0 0 .35rem}
+.date{font-size:1.5rem;font-weight:700;color:var(--red);line-height:1.2}
+.time{font-size:1.06rem}
+.venue{margin-top:.9rem !important;font-weight:700}
+.address a{color:var(--ink);text-underline-offset:3px}
+.address a:hover,.address a:focus-visible{color:var(--red)}
+.admission{
+  margin-top:1rem !important;
+  font-variant:small-caps;
+  letter-spacing:.06em;
+  font-size:1.12rem;
+  color:var(--red);
+}
+
+/* -------------------------------------------------------------- COUNTDOWN */
+.countdown{text-align:center;padding:2.4rem 0 2.6rem;border-bottom:1px solid var(--rule)}
+.countdown-label{
+  margin:0 0 1.1rem;
+  font-size:.82rem;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.note{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:9.4rem;height:9.4rem;
+  background:#F6E58C;
+  background-image:linear-gradient(160deg,#F9EE9F 0%,#F2DE78 100%);
+  box-shadow:0 8px 18px rgba(36,26,26,.17),0 1px 0 rgba(255,255,255,.5) inset;
+  transform:rotate(-2.4deg);
+  padding:.4rem;
+}
+.note-number{
+  font-family:var(--hand);
+  font-size:4.6rem;
+  line-height:1;
+  color:#2B2415;
+}
+.note.is-text .note-number{font-size:2.2rem;line-height:1.15}
+.note-link{display:inline-block;margin-top:1.1rem;color:var(--red);font-weight:700}
+
+/* ----------------------------------------------------------------- SIGNUP */
+.signup{padding:2.3rem 0 2.6rem;text-align:center}
+.signup h2{margin:0 0 .35rem;font-size:1.3rem;font-weight:700}
+.signup-note{margin:0 0 1.2rem;font-size:.95rem;color:var(--muted)}
+#signup-form{display:flex;flex-direction:column;gap:.7rem;max-width:22rem;margin:0 auto}
+#email{
+  font-family:var(--serif);font-size:1rem;
+  padding:.85rem .9rem;
+  border:1px solid var(--rule);
+  border-radius:3px;
+  background:#fff;color:var(--ink);
+  min-height:48px;
+}
+#email:focus-visible,button:focus-visible,a:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+button{
+  font-family:var(--serif);font-size:1rem;font-weight:700;
+  letter-spacing:.04em;
+  padding:.85rem 1rem;min-height:48px;
+  border:0;border-radius:3px;
+  background:var(--red);color:#fff;
+  cursor:pointer;
+}
+.form-msg{margin:.4rem 0 0;font-size:.95rem}
+.form-msg.ok{color:var(--ink)}
+.form-msg.err{color:var(--red)}
+
+/* ----------------------------------------------------------------- FOOTER */
+footer{
+  max-width:34rem;
+  margin:0 auto;
+  padding:1.8rem 22px calc(env(safe-area-inset-bottom,0px) + 2.4rem);
+  font-size:.78rem;
+  line-height:1.5;
+  color:var(--muted);
+  text-align:center;
+}
+footer p{margin:0 0 .6rem}
+footer cite{font-style:italic}
+
+/* ---------------------------------------------------------------- DESKTOP */
+@media (min-width:768px){
+  body{font-size:19px}
+  .hero{
+    background-image:url("/assets/sky-desktop.webp");
+    min-height:62dvh;
+    align-items:center;
+    padding:10vh 22px;
+  }
+  .hero::after{
+    background:linear-gradient(to bottom,rgba(247,242,232,.42) 0%,rgba(247,242,232,.1) 60%,rgba(247,242,232,0) 100%);
+  }
+  .hero-inner{max-width:40rem}
+  h1{font-size:clamp(4rem,7.5vw,6rem)}
+  .subtitle{font-size:1.2rem}
+}
+
+@media (prefers-reduced-motion: no-preference){
+  .address a,button,.note-link{transition:color 140ms ease,background-color 140ms ease}
+  button:hover{background:#A9141A}
+}

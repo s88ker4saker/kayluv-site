@@ -1,87 +1,74 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Kayluv · Music Publishing House</title>
-  <meta name="description" content="Kayluv — a music publishing house, open 120 years and never fully redecorated. Step into the shop.">
-  <link rel="stylesheet" href="css/main.css">
-  <!-- Per-section content stylesheets, needed here too because overlay
-       content is injected into this document, not loaded as a new page. -->
-  <link rel="stylesheet" href="css/bulletin.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mythmaking of Deseret — Kayluv</title>
+<meta name="description" content="Mythmaking of Deseret: the Senior Composition Concert of Caleb Martin. Friday, December 11, 2026, 7:30 PM at First United Methodist Church, Salt Lake City. Free admission.">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Mythmaking of Deseret">
+<meta property="og:description" content="The Senior Composition Concert of Caleb Martin. Friday, December 11, 2026, 7:30 PM. First United Methodist Church, Salt Lake City. Free admission.">
+<meta property="og:image" content="https://kayluvpresents.com/assets/og-card.jpg">
+<meta property="og:url" content="https://kayluvpresents.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap">
+<link rel="stylesheet" href="/css/concert.css">
 </head>
 <body>
-  <h1 class="visually-hidden">Kayluv — Music Publishing House</h1>
 
-  <!-- ROOM SHELL: cover-fit 3200×2000 canvas; pans horizontally on narrow
-       screens. Hotspots are rendered into the SVG layer by js/room.js from
-       the data in js/hotspot-data.js — none are hardcoded here. -->
-  <div class="room-viewport" id="room-viewport">
-    <div class="room-stage" id="room-stage">
-      <img src="assets/room-placeholder.svg"
-           alt="The interior of the Kayluv music publishing shop. Interactive objects in the room are listed after this image."
-           width="3200" height="2000" draggable="false">
-      <svg id="hotspot-layer" class="hotspot-layer"
-           viewBox="0 0 3200 2000" preserveAspectRatio="xMidYMid meet"
-           aria-label="Objects in the shop"></svg>
-    </div>
+<header class="hero">
+  <div class="hero-inner">
+    <p class="presents">Kayluv presents</p>
+    <h1>Mythmaking<br>of Deseret</h1>
+    <p class="subtitle">The Senior Composition Concert of Caleb Martin</p>
+    <p class="tagline"><em>or,</em> How I Learned to Love Utah</p>
   </div>
+</header>
 
-  <!-- GEAR MENU (SPEC §2): always visible top-right; nav is the complete
-       non-mouse path through the site (SPEC §3); sound controls are stubs
-       until the audio manager (build step 7). -->
-  <button id="gear-button" class="gear-button" type="button"
-          aria-expanded="false" aria-controls="gear-panel"
-          aria-label="Site menu and sound settings">
-    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-      <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-    </svg>
-  </button>
+<main>
 
-  <div id="gear-panel" class="gear-panel" role="dialog"
-       aria-label="Site menu and sound settings" hidden>
-    <nav aria-label="All sections of the site">
-      <h2>Sections</h2>
-      <ul>
-        <li><a href="/">The Shop — you are here</a></li>
-        <li><a href="/catalogue/">The Catalogue</a></li>
-        <li><a href="/counter/">The Counter — scores</a></li>
-        <li><a href="/bulletin/">Bulletin — news &amp; performances</a></li>
-        <li><a href="/correspondence/">Correspondence — contact &amp; newsletter</a></li>
-        <li><a href="/proprietor/">The Proprietor</a></li>
-        <li><a href="/listen/">Listen — streaming links</a></li>
-        <li class="later"><a href="/lantern/">Magic Lantern</a> <span class="tag">(post-launch)</span></li>
-        <li class="later"><a href="/radio/">Radio</a> <span class="tag">(post-launch)</span></li>
-        <li class="later"><a href="/backroom/">The Back Room</a> <span class="tag">(post-launch)</span></li>
-      </ul>
-    </nav>
-    <div class="sound-controls">
-      <h2>Sound</h2>
-      <button id="sound-toggle" class="sound-toggle" type="button" aria-pressed="false">Sound: off</button>
-      <div class="sound-volume-row">
-        <label for="sound-volume">Volume</label>
-        <input id="sound-volume" type="range" min="0" max="100" value="70">
-      </div>
-      <p class="stub-note">Sound arrives in a later build — these controls are not wired up yet.</p>
-    </div>
-  </div>
-
-  <!-- OVERLAY (SPEC §4): destinations open here, above the dimmed room,
-       fetched by js/overlay-router.js from their standalone pages. -->
-  <div id="overlay-scrim" class="overlay-scrim" hidden></div>
-  <section id="overlay-panel" class="overlay-panel" role="dialog" hidden>
-    <button id="overlay-close" class="overlay-close" type="button"
-            aria-label="Close and return to the shop">&times;</button>
-    <div id="overlay-body" class="overlay-body" tabindex="-1"></div>
+  <section class="essentials" aria-label="Concert details">
+    <p class="date">Friday, December&nbsp;11, 2026</p>
+    <p class="time">7:30 PM &middot; Doors at 7:00</p>
+    <p class="venue">First United Methodist Church</p>
+    <p class="address">
+      <a href="https://maps.google.com/?q=First+United+Methodist+Church,+203+S+200+E,+Salt+Lake+City,+UT">203 S 200 E, Salt Lake City</a>
+    </p>
+    <p class="admission">Free Admission</p>
   </section>
 
-  <script src="js/hotspot-data.js" defer></script>
-  <script src="js/room.js" defer></script>
-  <script src="js/gear-menu.js" defer></script>
-  <script src="js/overlay-router.js" defer></script>
-  <!-- Per-section content modules (JSON-driven sections, SPEC §6): loaded
-       here so they're already present in the shell when the overlay router
-       injects that section's fragment and dispatches kayluv:overlay-content. -->
-  <script src="js/bulletin.js" defer></script>
+  <section class="countdown" aria-label="Countdown to the concert">
+    <p class="countdown-label" id="countdown-label">days until the concert</p>
+    <div class="note" id="note" role="status">
+      <span class="note-number" id="note-number">&nbsp;</span>
+    </div>
+  </section>
+
+  <section class="signup" aria-labelledby="signup-heading">
+    <h2 id="signup-heading">Stay in touch</h2>
+    <p class="signup-note">News about the concert, recordings, and future releases.</p>
+    <form name="signup" method="POST" data-netlify="true" netlify-honeypot="bot-field" id="signup-form">
+      <input type="hidden" name="form-name" value="signup">
+      <p class="hp"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off"></label></p>
+      <label class="sr-only" for="email">Email address</label>
+      <input id="email" type="email" name="email" placeholder="you@example.com" required autocomplete="email" inputmode="email">
+      <button type="submit">Sign up</button>
+      <p class="form-msg" id="form-msg" role="status" hidden></p>
+    </form>
+  </section>
+
+</main>
+
+<footer>
+  <p>Supported by the Undergraduate Research Opportunities Program (UROP), Office of Undergraduate Research, University of Utah.</p>
+  <p class="credit">Background: Thomas Moran, <cite>The Great Salt Lake of Utah</cite>, chromolithograph by L.&nbsp;Prang &amp; Co., 1875. The New York Public Library.</p>
+</footer>
+
+<script src="/js/countdown.js" defer></script>
+<script src="/js/signup.js" defer></script>
 </body>
 </html>
