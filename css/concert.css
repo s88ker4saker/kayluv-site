@@ -295,8 +295,8 @@ button[type="submit"]{
   font-size:1.02rem;color:#F6B9B5;
 }
 .d-roster{line-height:1.6}
-.d-cast{line-height:1.7;margin-top:1.3rem}
-.d-come{margin:1.5rem 0 .9rem;font-style:italic;color:#F6B9B5}
+.d-cast{line-height:1.7;margin-top:.3rem}
+.d-come{margin:1.3rem 0 .9rem;font-style:italic;color:#F6B9B5}
 .d-signoff{margin:0;line-height:1.5;font-style:italic;color:#F6B9B5}
 .d-sign{
   display:inline-block;margin-top:.15rem;
