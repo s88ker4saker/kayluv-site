@@ -68,14 +68,29 @@ Last updated: 2026-07-08
 
 ## 4. Asset dispositions (current placeholder set)
 
-**Promoted-pending (launch candidate, gated):**
-- `Shop_Back.png` — under consideration as the actual launch background
-  (found-painting-as-room is doctrinally sound collage). Gates before
-  promotion is final: (1) identify the work; confirm public-domain
-  provenance; (2) hotspot walk — verify every interactive object has a
-  natural home in the composition within the safe zone; (3) decide the
-  object-integration style (drawn-to-match vs. openly collaged); (4) compress
-  from 11.9MB to well under 1MB (WebP/AVIF) — required regardless of fate.
+**REJECTED — do not ship (resolved 2026-07-11):**
+- `Shop_Back.png` — identified as *"Intendant of the building stone interior"*
+  by **Don Carlos DuBois**, a Scottish Rite 8th Degree ritual backdrop made
+  for the Great Western Stage Equipment Co. (Kansas City), held by the Univ.
+  of Minnesota Performing Arts Archives, Great Western collection (PA044),
+  item p16022coll116:1548. Gouache, 23×17 in.
+  **Not public domain.** DuBois died 1964-03-26 and worked for Great Western
+  only from ~1956, so the piece is mid/late-1950s. Unpublished + known author
+  = life+70 → PD on 2035-01-01 at the earliest; work-for-hire or renewed
+  publication push it to ~2052–2077. UMN's own record states copyright may
+  apply and declines to clear it. **Must not appear in any public deploy.**
+  Using it as loose compositional *reference* for an original painting
+  remains open; reproducing the scan does not.
+  Secondary note: it is explicitly Masonic (hanging degree star with Greek
+  letters, King Solomon's Temple under construction through the window) —
+  relevant to any successor image chosen for the same composition.
+
+**Still-open questions inherited by whatever background replaces it:**
+(1) hotspot walk — verify every interactive object has a natural home in the
+composition within the safe zone; (2) object-integration style
+(drawn-to-match vs. openly collaged); (3) compress to well under 1MB
+(WebP/AVIF); (4) source canvas must reach 16:10 — prefer extending side wall
+over cropping ceiling/floor, which carry the room's depth.
 
 **Audition (might survive to launch):**
 - `candle_flicker.gif` — convert to animated WebP; keep if it sits well
@@ -101,11 +116,16 @@ Last updated: 2026-07-08
 
 ## 5. Open items
 
-- Provenance research on the Shop_Back painting (blocks its promotion).
-- Hotspot walk of Shop_Back against the full object list.
+- **Choose a replacement room background** (Shop_Back rejected — see §4).
+  Rights bar for any candidate: a positive PD/CC0 statement ("No Copyright —
+  United States", "Public Domain Mark", CC0) or US publication before 1931.
+  "Copyright undetermined" / "may be governed by" is a decline, not a maybe.
+  Beware archival *working drawings*: unpublished works run life+70 no matter
+  how old they look, so an undated rendering is not safe just for being old.
+- Hotspot walk of the chosen background against the full object list.
 - Master illustration commission brief: expand ASSET_BRIEF.md with §2's
-  per-object layer/frame specs (scope shrinks to objects-only if Shop_Back
-  is promoted).
-- Chosen tension to ratify explicitly if Shop_Back ships: European romantic
-  stage set anchoring an American-West mythology (collage doctrine holds it,
-  but it must be chosen, not defaulted).
+  per-object layer/frame specs (scope shrinks to objects-only if a found
+  background is adopted).
+- If a found background ships, ratify its cultural register explicitly rather
+  than defaulting into it (the rejected candidate's Masonic content is the
+  cautionary case).
