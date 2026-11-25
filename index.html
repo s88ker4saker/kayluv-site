@@ -39,30 +39,42 @@
     </div>
 
     <div class="focus">
-      <p class="countdown-label" id="countdown-label">days until the concert</p>
-      <div class="note" id="note" role="status">
-        <span class="note-number" id="note-number">&nbsp;</span>
-      </div>
+      <div class="duo">
+        <div class="note-col">
+          <p class="countdown-label" id="countdown-label">days until the concert</p>
+          <div class="note" id="note" role="status">
+            <span class="note-number" id="note-number">&nbsp;</span>
+          </div>
+        </div>
 
       <div class="song">
-        <div class="song-controls">
-          <!-- "O, Caruso!" — Metropolitan Museum of Art, CC0. An illustration
-               rather than a photograph, so it belongs to the same painted
-               world as the Moran behind it. Lit with the fire gradient on
-               hover and while playing (ASSET_BRIEF §1). -->
-          <button type="button" class="phono" id="play-btn" aria-pressed="false" aria-label="Play &ldquo;Day by Day&rdquo;">
-            <img src="/assets/phonograph.webp" alt="" width="480" height="660">
-            <span class="phono-state" aria-hidden="true"></span>
-          </button>
-        </div>
-        <!-- The lyric itself is the way in to the recording's details; the
-             trailing ellipsis is the invitation. Hover/focus warms it toward
-             the fire gold, which ASSET_BRIEF §1 makes the interactive colour. -->
-        <button type="button" class="song-caption" id="song-info-btn" aria-haspopup="dialog">
-          <em>Day by day, I know I&rsquo;ll be with you&hellip;</em>
+        <!-- Note and gramophone stand on the same line, like two things set
+             down on the same shelf. "O, Caruso!" — Metropolitan Museum of
+             Art, CC0; cut out, so it sits on the painting rather than on a
+             card. Lit with the fire gradient on hover and while playing. -->
+        <button type="button" class="phono" id="play-btn" aria-pressed="false" aria-label="Play &ldquo;Day by Day&rdquo;">
+          <img src="/assets/gramophone.webp" alt="" width="501" height="800">
         </button>
-        <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
       </div>
+      </div>
+
+      <!-- Appears only once the recording has been started. A native range
+           input, so keyboard and screen-reader seeking work; styled down to
+           a hairline so it reads as a tonearm track, not a media widget. -->
+      <div class="seekbar" id="seekbar" hidden>
+        <label class="sr-only" for="seek">Seek within the recording</label>
+        <input type="range" id="seek" min="0" max="1000" value="0" step="1">
+        <p class="times"><span id="t-cur">0:00</span><span id="t-dur">&nbsp;</span></p>
+      </div>
+
+      <!-- The lyric is the way in to the recording's details; the trailing
+           ellipsis is the invitation. Hover/focus warms it toward the fire
+           gold, which ASSET_BRIEF §1 makes the interactive colour. -->
+      <button type="button" class="song-caption" id="song-info-btn" aria-haspopup="dialog">
+        <em>Day by day, I know I&rsquo;ll be with you&hellip;</em>
+      </button>
+
+      <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
     </div>
 
     <div class="opening-actions">

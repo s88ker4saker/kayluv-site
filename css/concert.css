@@ -115,32 +115,107 @@ h1 img{display:block;width:100%;margin:0 auto}
   color:var(--cream);text-shadow:var(--halo-dark);
 }
 
-/* A plate cut from a period songbook and propped by the note. Its own
-   cream paper is the surface; the fire gradient lights it on hover and
-   holds lit while the recording plays. Tilt is +1.6deg against the
-   note's -2.4deg so the two read as two separate hands, not one value. */
-.song{margin-top:1.9rem}
-.song-controls{display:flex;align-items:center;justify-content:center}
+/* The note and the gramophone stand on one line, like two things set down
+   on the same shelf. Different tilts on purpose: they should read as two
+   separate hands, not one CSS value used twice. */
+.duo{
+  display:flex;align-items:flex-end;justify-content:center;
+  gap:clamp(.5rem,3vw,1.6rem);
+}
+.note-col{display:flex;flex-direction:column;align-items:center}
+
+/* "O, Caruso!", Metropolitan Museum of Art, CC0 — cut out, so it stands on
+   the painting rather than on a card. The fire gradient lights it on hover
+   and holds lit while the recording plays (ASSET_BRIEF §1). */
 .phono{
-  position:relative;display:block;padding:0;cursor:pointer;
-  width:6.2rem;border:0;background:none;line-height:0;
-  transform:rotate(1.6deg);
-  filter:drop-shadow(0 10px 20px rgba(16,12,9,.5));
+  display:block;padding:0;border:0;background:none;line-height:0;cursor:pointer;
+  width:clamp(5rem,19vw,7.4rem);
+  transform:rotate(1.6deg);transform-origin:bottom center;
+  filter:drop-shadow(0 8px 14px rgba(16,12,9,.45));
 }
 .phono img{display:block;width:100%;height:auto}
 .phono:hover,.phono:focus-visible,.phono[aria-pressed="true"]{
-  filter:drop-shadow(0 10px 20px rgba(16,12,9,.5))
-         drop-shadow(0 0 7px rgba(240,168,0,.95))
-         drop-shadow(0 0 18px rgba(232,92,16,.7))
-         drop-shadow(0 0 34px rgba(200,30,30,.45));
+  filter:drop-shadow(0 8px 14px rgba(16,12,9,.45))
+         drop-shadow(0 0 6px rgba(240,168,0,.95))
+         drop-shadow(0 0 16px rgba(232,92,16,.7))
+         drop-shadow(0 0 30px rgba(200,30,30,.45));
 }
-/* pause bars, shown only while it is actually playing */
-.phono-state{
-  position:absolute;right:.4rem;bottom:.4rem;
-  width:.95rem;height:1.05rem;opacity:0;
-  border-left:.3rem solid var(--red);border-right:.3rem solid var(--red);
+
+/* Tonearm track, not a media widget: a hairline that fills with fire gold.
+   Native <input type="range"> underneath so keyboard seeking works. */
+.seekbar{
+  width:min(100%,19rem);margin:1.4rem auto 0;
 }
-.phono[aria-pressed="true"] .phono-state{opacity:1}
+.seekbar[hidden]{display:none}
+#seek{
+  -webkit-appearance:none;appearance:none;
+  display:block;width:100%;height:20px;background:none;cursor:pointer;
+}
+#seek::-webkit-slider-runnable-track{
+  height:2px;border-radius:2px;
+  background:linear-gradient(to right,
+    #F0A800 0 var(--pct,0%), rgba(236,226,213,.4) var(--pct,0%) 100%);
+}
+#seek::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;
+  width:11px;height:11px;margin-top:-4.5px;border:0;border-radius:50%;
+  background:#F0A800;box-shadow:0 1px 4px rgba(16,12,9,.7);
+}
+#seek::-moz-range-track{
+  height:2px;border-radius:2px;background:rgba(236,226,213,.4);
+}
+#seek::-moz-range-progress{height:2px;border-radius:2px;background:#F0A800}
+#seek::-moz-range-thumb{
+  width:11px;height:11px;border:0;border-radius:50%;
+  background:#F0A800;box-shadow:0 1px 4px rgba(16,12,9,.7);
+}
+.times{
+  display:flex;justify-content:space-between;
+  margin:.1rem 0 0;font-size:.78rem;
+  color:var(--cream);text-shadow:var(--halo-dark);
+  font-variant-numeric:tabular-nums;
+}
+
+.opening-actions{position:relative;z-index:1;width:100%;max-width:34rem}
+
+.presents{
+  margin:0 0 .6rem;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink);text-shadow:var(--halo-light);
+}
+/* The title and the Deseret line are poster artwork, not type. They bring
+   their own outlines, so they need no halo to sit on the painting. */
+.deseret{display:block;width:min(100%,30rem);margin:0 auto .55rem}
+h1{margin:0}
+h1 img{display:block;width:100%;margin:0 auto}
+.subtitle{
+  margin:.9rem 0 .15rem;font-size:1.02rem;font-weight:600;line-height:1.3;
+  color:var(--ink);text-shadow:var(--halo-light);
+}
+.tagline{
+  margin:0;font-size:.95rem;font-style:italic;
+  color:var(--ink);text-shadow:var(--halo-light);
+}
+
+/* ----------------------------------------------- THE TWO HIGHLIGHTS ---- */
+.focus{margin-top:auto}
+
+.countdown-label{
+  margin:0 0 .8rem;font-size:.76rem;letter-spacing:.17em;text-transform:uppercase;
+  color:var(--cream);text-shadow:var(--halo-dark);
+}
+.note{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:8.4rem;height:8.4rem;padding:.4rem;
+  background-image:linear-gradient(160deg,#F9EE9F 0%,#F2DE78 100%);
+  box-shadow:0 12px 26px rgba(16,12,9,.45),0 1px 0 rgba(255,255,255,.5) inset;
+  transform:rotate(-2.4deg);
+}
+.note-number{font-family:var(--hand);font-size:4.2rem;line-height:1;color:#2B2415}
+.note.is-text .note-number{font-size:1.9rem;line-height:1.15}
+.note-link{
+  display:inline-block;margin-top:.9rem;font-weight:700;
+  color:var(--cream);text-shadow:var(--halo-dark);
+}
 
 /* The lyric is the control. No button chrome — it reads as the line it is,
    and warms to the fire gold on hover/focus (ASSET_BRIEF §1: the fire
@@ -264,7 +339,7 @@ button[type="submit"]{
   .subtitle{font-size:1.2rem}
   .note{width:9.4rem;height:9.4rem}
   .note-number{font-size:4.7rem}
-  .phono{width:7rem}
+  .phono{width:7.4rem}
 }
 
 @media (prefers-reduced-motion: no-preference){
