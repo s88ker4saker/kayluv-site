@@ -115,44 +115,46 @@ h1 img{display:block;width:100%;margin:0 auto}
   color:var(--cream);text-shadow:var(--halo-dark);
 }
 
-/* the record: a little pressed disc, tilted like the note */
+/* A plate cut from a period songbook and propped by the note. Its own
+   cream paper is the surface; the fire gradient lights it on hover and
+   holds lit while the recording plays. Tilt is +1.6deg against the
+   note's -2.4deg so the two read as two separate hands, not one value. */
 .song{margin-top:1.9rem}
-.song-controls{display:flex;align-items:center;justify-content:center;gap:.85rem}
-.disc{
-  width:5.1rem;height:5.1rem;padding:0;cursor:pointer;
-  border:0;border-radius:50%;
-  background:radial-gradient(circle at 50% 50%,
-      #2A2724 0 46%, #221F1D 46% 100%);
-  box-shadow:0 10px 22px rgba(16,12,9,.5),
-             0 0 0 1px rgba(240,232,220,.22) inset;
-  transform:rotate(-2.4deg);
-  display:grid;place-items:center;
+.song-controls{display:flex;align-items:center;justify-content:center}
+.phono{
+  position:relative;display:block;padding:0;cursor:pointer;
+  width:6.2rem;border:0;background:none;line-height:0;
+  transform:rotate(1.6deg);
+  filter:drop-shadow(0 10px 20px rgba(16,12,9,.5));
 }
-.disc-label{
-  width:2.3rem;height:2.3rem;border-radius:50%;
-  background:var(--red);
-  display:grid;place-items:center;
-  box-shadow:0 0 0 1px rgba(16,12,9,.35);
+.phono img{display:block;width:100%;height:auto}
+.phono:hover,.phono:focus-visible,.phono[aria-pressed="true"]{
+  filter:drop-shadow(0 10px 20px rgba(16,12,9,.5))
+         drop-shadow(0 0 7px rgba(240,168,0,.95))
+         drop-shadow(0 0 18px rgba(232,92,16,.7))
+         drop-shadow(0 0 34px rgba(200,30,30,.45));
 }
-.disc-glyph{
-  width:0;height:0;margin-left:3px;
-  border-left:12px solid var(--cream);
-  border-top:8px solid transparent;border-bottom:8px solid transparent;
+/* pause bars, shown only while it is actually playing */
+.phono-state{
+  position:absolute;right:.4rem;bottom:.4rem;
+  width:.95rem;height:1.05rem;opacity:0;
+  border-left:.3rem solid var(--red);border-right:.3rem solid var(--red);
 }
-.disc[aria-pressed="true"] .disc-glyph{
-  width:11px;height:14px;margin-left:0;border:0;
-  border-left:4px solid var(--cream);border-right:4px solid var(--cream);
-}
-.info-dot{
-  width:2.1rem;height:2.1rem;border-radius:50%;cursor:pointer;
-  font-family:var(--serif);font-style:italic;font-size:1.05rem;line-height:1;
-  color:var(--cream);background:rgba(61,72,77,.72);
-  border:1px solid rgba(240,232,220,.4);
-}
+.phono[aria-pressed="true"] .phono-state{opacity:1}
+
+/* The lyric is the control. No button chrome — it reads as the line it is,
+   and warms to the fire gold on hover/focus (ASSET_BRIEF §1: the fire
+   gradient is the interactive colour). */
 .song-caption{
-  margin:.85rem 0 0;font-size:1rem;
+  display:inline-block;
+  margin:.95rem 0 0;padding:.3rem .2rem;
+  font-family:var(--serif);font-size:1.05rem;
+  background:none;border:0;cursor:pointer;
   color:var(--cream);text-shadow:var(--halo-dark);
 }
+.song-caption em{border-bottom:1px solid rgba(240,232,220,.28);padding-bottom:.12rem}
+.song-caption:hover,.song-caption:focus-visible{color:#F0A800}
+.song-caption:hover em,.song-caption:focus-visible em{border-bottom-color:#F0A800}
 
 .opening-actions{margin-top:1.6rem}
 .pill{
@@ -161,7 +163,7 @@ h1 img{display:block;width:100%;margin:0 auto}
   color:var(--cream);background:rgba(61,72,77,.72);
   border:1px solid rgba(240,232,220,.4);border-radius:999px;
 }
-.pill:hover,.info-dot:hover{background:rgba(61,72,77,.92)}
+.pill:hover{background:rgba(61,72,77,.92)}
 
 /* ------------------------------------------------------------------ TAIL
  * Still over the painting — only the form controls carry a surface. */
@@ -262,11 +264,14 @@ button[type="submit"]{
   .subtitle{font-size:1.2rem}
   .note{width:9.4rem;height:9.4rem}
   .note-number{font-size:4.7rem}
-  .disc{width:5.6rem;height:5.6rem}
+  .phono{width:7rem}
 }
 
 @media (prefers-reduced-motion: no-preference){
-  .pill,.info-dot,button[type="submit"],.tail-social a,.sheet-dialog a{
+  .pill,button[type="submit"],.tail-social a,.sheet-dialog a{
     transition:background-color 150ms ease,color 150ms ease;
   }
+  .song-caption{transition:color 180ms ease,transform 180ms ease}
+  .song-caption em{transition:border-color 180ms ease}
+  .song-caption:hover,.song-caption:focus-visible{transform:scale(1.035)}
 }

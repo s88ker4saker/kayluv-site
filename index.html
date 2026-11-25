@@ -46,12 +46,21 @@
 
       <div class="song">
         <div class="song-controls">
-          <button type="button" class="disc" id="play-btn" aria-pressed="false" aria-label="Play &ldquo;Day by Day&rdquo;">
-            <span class="disc-label"><span class="disc-glyph" aria-hidden="true"></span></span>
+          <!-- "O, Caruso!" — Metropolitan Museum of Art, CC0. An illustration
+               rather than a photograph, so it belongs to the same painted
+               world as the Moran behind it. Lit with the fire gradient on
+               hover and while playing (ASSET_BRIEF §1). -->
+          <button type="button" class="phono" id="play-btn" aria-pressed="false" aria-label="Play &ldquo;Day by Day&rdquo;">
+            <img src="/assets/phonograph.webp" alt="" width="480" height="660">
+            <span class="phono-state" aria-hidden="true"></span>
           </button>
-          <button type="button" class="info-dot" id="song-info-btn" aria-haspopup="dialog" aria-label="About this recording">i</button>
         </div>
-        <p class="song-caption"><em>Day by day, I know I&rsquo;ll be with you.</em></p>
+        <!-- The lyric itself is the way in to the recording's details; the
+             trailing ellipsis is the invitation. Hover/focus warms it toward
+             the fire gold, which ASSET_BRIEF §1 makes the interactive colour. -->
+        <button type="button" class="song-caption" id="song-info-btn" aria-haspopup="dialog">
+          <em>Day by day, I know I&rsquo;ll be with you&hellip;</em>
+        </button>
         <audio id="audio" preload="none" src="/assets/audio/day-by-day.mp3"></audio>
       </div>
     </div>
@@ -132,6 +141,9 @@
   </p>
 
   <p class="d-come">Come hear this piece live at the concert.</p>
+
+  <p class="d-fine">Phonograph plate: <cite>O, Caruso!</cite>, The Metropolitan
+     Museum of Art, released under CC0.</p>
 </dialog>
 
 <script src="/js/countdown.js" defer></script>
