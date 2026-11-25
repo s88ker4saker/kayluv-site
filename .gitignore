@@ -16,3 +16,6 @@ Thumbs.db
 # Just in case tooling ever sneaks in (stack is vanilla — SPEC §3)
 node_modules/
 *.log
+
+# scratch SVG comparison harness
+_svgtest/
