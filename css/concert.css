@@ -296,7 +296,13 @@ button[type="submit"]{
 }
 .d-roster{line-height:1.6}
 .d-cast{line-height:1.7;margin-top:1.3rem}
-.d-come{margin:0 0 1.2rem;font-style:italic;color:#F6B9B5}
+.d-come{margin:1.5rem 0 .9rem;font-style:italic;color:#F6B9B5}
+.d-signoff{margin:0;line-height:1.5;font-style:italic;color:#F6B9B5}
+.d-sign{
+  display:inline-block;margin-top:.15rem;
+  font-family:var(--hand);font-style:normal;font-size:1.5rem;
+  color:var(--cream);transform:rotate(-1.4deg);
+}
 .d-fine{
   margin-top:1.8rem;padding-top:1rem;font-size:.78rem;line-height:1.5;
   color:rgba(236,226,213,.68);border-top:1px solid rgba(240,232,220,.18);
